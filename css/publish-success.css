@@ -1,6 +1,6 @@
 /* publish-success.css — 发布成功页（由 pages/publish-success/index.wxss 转换） */
 
-.success-page {
+.success-root .success-page {
   min-height: 100%;
   background: var(--coral-50);
   padding-bottom: calc(48px + env(safe-area-inset-bottom));
@@ -9,7 +9,7 @@
 /* 主视觉：用 .success-page .hero 提高特异性，压过 detail.css 中后加载的 .hero
    （详情页轮播的固定 height:196px / overflow:hidden / 渐变背景会泄漏到本页，
    导致说明文字被裁剪并与下方回执卡片重叠） */
-.success-page .hero {
+.success-root .success-page .hero {
   display: flow-root;
   position: static;
   width: auto;
@@ -20,7 +20,7 @@
   text-align: center;
 }
 
-.success-icon {
+.success-root .success-icon {
   width: 72px;
   height: 72px;
   margin: 0 auto;
@@ -33,14 +33,14 @@
   box-shadow: var(--shadow-soft);
 }
 
-.success-title {
+.success-root .success-title {
   margin-top: 16px;
   font-size: 19px;
   font-weight: 700;
   color: var(--ink-900);
 }
 
-.success-desc {
+.success-root .success-desc {
   max-width: 330px;
   margin: 8px auto 0;
   padding-bottom: 30px;
@@ -53,59 +53,59 @@
   overflow: visible;
 }
 
-.success-desc-line {
+.success-root .success-desc-line {
   display: block;
   white-space: normal;
   overflow-wrap: anywhere;
 }
 
 /* 回执卡片 */
-.receipt.card {
+.success-root .receipt.card {
   position: relative;
   clear: both;
   margin: 0 20px;
 }
 
-.receipt-badges {
+.success-root .receipt-badges {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.receipt-time {
+.success-root .receipt-time {
   margin-left: auto;
   font-size: 11px;
   color: var(--ink-300);
 }
 
-.receipt-name {
+.success-root .receipt-name {
   margin-top: 10px;
   font-size: 15.5px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.receipt-info { margin-top: 12px; }
+.success-root .receipt-info { margin-top: 12px; }
 
-.receipt-row {
+.success-root .receipt-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 0;
 }
 
-.receipt-label {
+.success-root .receipt-label {
   font-size: 12px;
   color: var(--ink-500);
 }
 
-.receipt-value {
+.success-root .receipt-value {
   font-size: 12.5px;
   font-weight: 500;
   color: var(--ink-900);
 }
 
-.next-tip {
+.success-root .next-tip {
   margin-top: 12px;
   background: var(--coral-50);
   border-radius: 8px;
@@ -114,31 +114,31 @@
   gap: 6px;
 }
 
-.next-tip .tip-icon { font-size: 13px; flex-shrink: 0; }
+.success-root .next-tip .tip-icon { font-size: 13px; flex-shrink: 0; }
 
-.next-tip .tip-text {
+.success-root .next-tip .tip-text {
   font-size: 11px;
   line-height: 1.6;
   color: var(--ink-700);
 }
 
 /* 步骤 */
-.steps.card { margin-top: 16px; }
+.success-root .steps.card { margin-top: 16px; }
 
-.steps-title {
+.success-root .steps-title {
   font-size: 13.5px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.step-item {
+.success-root .step-item {
   margin-top: 12px;
   display: flex;
   align-items: flex-start;
   gap: 10px;
 }
 
-.step-num {
+.success-root .step-num {
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -152,7 +152,7 @@
   flex-shrink: 0;
 }
 
-.step-text {
+.success-root .step-text {
   flex: 1;
   font-size: 12px;
   line-height: 1.6;
@@ -160,13 +160,13 @@
 }
 
 /* 链接卡片 */
-.links {
+.success-root .links {
   margin: 16px 20px 12px;
   display: flex;
   gap: 12px;
 }
 
-.link-card {
+.success-root .link-card {
   flex: 1;
   background: #FFFFFF;
   border-radius: 10px;
@@ -178,23 +178,23 @@
   cursor: pointer;
 }
 
-.link-icon { font-size: 18px; }
+.success-root .link-icon { font-size: 18px; }
 
-.link-title {
+.success-root .link-title {
   margin-top: 4px;
   font-size: 12.5px;
   font-weight: 500;
   color: var(--ink-900);
 }
 
-.link-sub {
+.success-root .link-sub {
   font-size: 11px;
   color: var(--ink-500);
 }
 
 /* 底部操作栏（二级页，flex 固定在 app-main 底部） */
-.success-page ~ .bottom-bar,
-.page > .bottom-bar {
+.success-root .success-page ~ .bottom-bar,
+.success-root > .bottom-bar {
   flex-shrink: 0;
   background: #FFFFFF;
   border-top: 1px solid var(--coral-100);
@@ -207,7 +207,7 @@
   z-index: 50;
 }
 
-.page > .bottom-bar .bar-btn {
+.success-root > .bottom-bar .bar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,14 +218,14 @@
   cursor: pointer;
 }
 
-.page > .bottom-bar .bar-btn.primary {
+.success-root > .bottom-bar .bar-btn.primary {
   flex: 1;
   background: var(--coral-500);
   color: #FFFFFF;
   box-shadow: 0 4px 12px rgba(227, 125, 108, 0.3);
 }
 
-.page > .bottom-bar .bar-btn.outline {
+.success-root > .bottom-bar .bar-btn.outline {
   width: 96px;
   flex-shrink: 0;
   border: 1px solid var(--coral-300);

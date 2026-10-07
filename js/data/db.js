@@ -7,6 +7,7 @@ window.LF = window.LF || {};
 (function (LF) {
   var DB_KEY = 'lf_local_db_v1';
   var state = null;
+  var storedRaw = null, changing = false;
 
   function pad2(n) { return String(n).padStart(2, '0'); }
 
@@ -91,34 +92,53 @@ window.LF = window.LF || {};
   }
 
   function load() {
-    if (state) return state;
-    try {
-      var raw = localStorage.getItem(DB_KEY);
-      if (raw) {
-        state = JSON.parse(raw);
+    if (changing) return state;
+    var raw;
+    try { raw = localStorage.getItem(DB_KEY); }
+    catch (_) { throw new Error('无法读取本地存储，请允许浏览器保存数据'); }
+    if (state && raw === storedRaw) return state;
+    if (raw) {
+      var parsed;
+      try { parsed = JSON.parse(raw); } catch (_) { throw new Error('本地数据无法解析，已保留原数据，请先备份再处理'); }
+      if (!parsed || parsed.version !== 1 || !Array.isArray(parsed.items) || !Array.isArray(parsed.users) || !parsed.seq) {
+        throw new Error('本地数据版本不兼容，已保留原数据');
       }
-    } catch (e) {
-      state = null;
-    }
-    if (!state || !state.items || state.version !== 1) {
-      state = build();
-      save();
+      state = parsed; storedRaw = raw;
+    } else {
+      state = build(); save();
     }
     return state;
   }
 
   function save() {
     try {
-      localStorage.setItem(DB_KEY, JSON.stringify(state));
+      var raw = JSON.stringify(state);
+      localStorage.setItem(DB_KEY, raw);
+      storedRaw = raw;
     } catch (e) {
       // 多数是图片 dataURL 撑爆配额
       throw new Error('本地存储空间不足，请减少图片数量或改用更小的图片后重试');
     }
   }
 
+  // 写入只在副本上进行；持久化失败时恢复旧对象、序号和资料。
+  function transaction(change) {
+    var previous = load();
+    state = JSON.parse(JSON.stringify(previous));
+    changing = true;
+    try {
+      var result = change(state);
+      save();
+      return result;
+    } catch (error) {
+      state = previous;
+      throw error;
+    } finally { changing = false; }
+  }
+
   function reset() {
     localStorage.removeItem(DB_KEY);
-    state = null;
+    state = null; storedRaw = null;
     return load();
   }
 
@@ -135,6 +155,7 @@ window.LF = window.LF || {};
   LF.db = {
     load: load,
     save: save,
+    transaction: transaction,
     reset: reset,
     nextUserId: nextUserId,
     nextItemId: nextItemId,

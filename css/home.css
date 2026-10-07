@@ -1,6 +1,6 @@
 /* home.css — 首页（由 pages/home/index.wxss 转换，1rpx = 0.5px） */
 
-.home-page {
+.home-root .home-page {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -9,26 +9,26 @@
 }
 
 /* 顶部栏 */
-.home-page .header {
+.home-root .home-page .header {
   background: #FFFFFF;
   padding: 20px 20px 12px;
   border-bottom: 1px solid var(--coral-100);
   flex-shrink: 0;
 }
 
-.header-title {
+.home-root .header-title {
   font-size: 19px;
   font-weight: 700;
   color: var(--ink-900);
 }
 
-.header-subtitle {
+.home-root .header-subtitle {
   margin-top: 4px;
   font-size: 12px;
   color: var(--ink-500);
 }
 
-.search-entry {
+.home-root .search-entry {
   margin-top: 14px;
   display: flex;
   align-items: center;
@@ -40,28 +40,28 @@
   cursor: pointer;
 }
 
-.search-icon { font-size: 15px; }
+.home-root .search-icon { font-size: 15px; }
 
-.search-placeholder {
+.home-root .search-placeholder {
   flex: 1;
   font-size: 13px;
   color: var(--ink-300);
 }
 
-.search-action {
+.home-root .search-action {
   font-size: 11px;
   color: var(--coral-500);
   font-weight: 500;
 }
 
 /* 快捷入口 */
-.quick-actions {
+.home-root .quick-actions {
   display: flex;
   gap: 10px;
   padding: 16px 20px 0;
 }
 
-.quick-item {
+.home-root .quick-item {
   flex: 1;
   background: #FFFFFF;
   border-radius: 10px;
@@ -74,7 +74,7 @@
   cursor: pointer;
 }
 
-.quick-icon {
+.home-root .quick-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -85,33 +85,33 @@
   font-size: 18px;
 }
 
-.quick-text {
+.home-root .quick-text {
   font-size: 12px;
   font-weight: 500;
   color: var(--ink-900);
 }
 
 /* 区块 */
-.section { padding: 20px 20px 0; }
+.home-root .section { padding: 20px 20px 0; }
 
-.section-header {
+.home-root .section-header {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
 }
 
-.section-title {
+.home-root .section-title {
   font-size: 15px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.section-count {
+.home-root .section-count {
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.tab-bar-inline {
+.home-root .tab-bar-inline {
   margin-top: 10px;
   display: flex;
   gap: 4px;
@@ -120,7 +120,7 @@
   padding: 4px;
 }
 
-.tab-btn {
+.home-root .tab-btn {
   flex: 1;
   text-align: center;
   padding: 8px 0;
@@ -132,22 +132,22 @@
   cursor: pointer;
 }
 
-.tab-btn.active {
+.home-root .tab-btn.active {
   background: #FFFFFF;
   color: var(--coral-600);
   box-shadow: 0 1px 4px rgba(214, 160, 148, 0.10);
 }
 
-.filter-hint {
+.home-root .filter-hint {
   margin-top: 8px;
   font-size: 11px;
   color: var(--ink-500);
 }
 
 /* 列表 */
-.item-list { padding: 12px 20px 0; }
+.home-root .item-list { padding: 12px 20px 0; }
 
-.item-card {
+.home-root .item-card {
   display: flex;
   gap: 12px;
   background: #FFFFFF;
@@ -158,7 +158,7 @@
   cursor: pointer;
 }
 
-.item-cover {
+.home-root .item-cover {
   width: 86px;
   height: 86px;
   border-radius: 8px;
@@ -170,33 +170,33 @@
   justify-content: center;
 }
 
-.cover-img { width: 100%; height: 100%; object-fit: cover; }
+.home-root .cover-img { width: 100%; height: 100%; object-fit: cover; }
 
-.cover-placeholder {
+.home-root .cover-placeholder {
   font-size: 28px;
   opacity: 0.5;
 }
 
-.item-info {
+.home-root .item-info {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
-.item-tags {
+.home-root .item-tags {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.item-time {
+.home-root .item-time {
   margin-left: auto;
   font-size: 10px;
   color: var(--ink-300);
 }
 
-.item-name {
+.home-root .item-name {
   margin-top: 6px;
   font-size: 14px;
   font-weight: 600;
@@ -206,16 +206,16 @@
   white-space: nowrap;
 }
 
-.item-meta {
+.home-root .item-meta {
   margin-top: 4px;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.meta-icon { font-size: 11px; }
+.home-root .meta-icon { font-size: 11px; }
 
-.meta-text {
+.home-root .meta-text {
   font-size: 11px;
   color: var(--ink-500);
   overflow: hidden;
@@ -224,7 +224,7 @@
 }
 
 /* 隐私提示 */
-.privacy-tip {
+.home-root .privacy-tip {
   margin: 12px 20px 0;
   background: rgba(253, 236, 232, 0.6);
   border: 1px solid var(--coral-200);
@@ -234,19 +234,19 @@
   gap: 8px;
 }
 
-.privacy-tip .tip-icon {
+.home-root .privacy-tip .tip-icon {
   font-size: 14px;
   flex-shrink: 0;
 }
 
-.privacy-tip .tip-text {
+.home-root .privacy-tip .tip-text {
   font-size: 11px;
   line-height: 1.6;
   color: var(--ink-700);
 }
 
 /* 悬浮按钮 */
-.fab {
+.home-root .fab {
   position: absolute;
   right: 20px;
   bottom: 76px;
@@ -264,10 +264,10 @@
   cursor: pointer;
 }
 
-.fab-icon { font-size: 14px; }
+.home-root .fab-icon { font-size: 14px; }
 
 /* 登录弹窗 */
-.auth-mask {
+.home-root .auth-mask {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -277,7 +277,7 @@
   justify-content: center;
 }
 
-.auth-modal {
+.home-root .auth-modal {
   width: 300px;
   background: #FFFFFF;
   border-radius: 16px;
@@ -285,28 +285,28 @@
   text-align: center;
 }
 
-.auth-icon {
+.home-root .auth-icon {
   font-size: 40px;
   margin-bottom: 12px;
 }
 
-.auth-title {
+.home-root .auth-title {
   font-size: 18px;
   font-weight: 700;
   color: var(--ink-900);
   margin-bottom: 8px;
 }
 
-.auth-desc {
+.home-root .auth-desc {
   font-size: 13px;
   color: var(--ink-500);
   line-height: 1.6;
   margin-bottom: 16px;
 }
 
-.auth-nickname { margin-bottom: 16px; }
+.home-root .auth-nickname { margin-bottom: 16px; }
 
-.auth-input {
+.home-root .auth-input {
   width: 100%;
   background: var(--coral-50);
   border: 1px solid var(--coral-100);
@@ -317,7 +317,7 @@
   box-sizing: border-box;
 }
 
-.auth-features {
+.home-root .auth-features {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
@@ -326,21 +326,21 @@
   border-radius: 8px;
 }
 
-.auth-feature {
+.home-root .auth-feature {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
 }
 
-.feature-icon { font-size: 18px; }
+.home-root .feature-icon { font-size: 18px; }
 
-.feature-text {
+.home-root .feature-text {
   font-size: 11px;
   color: var(--ink-700);
 }
 
-.auth-btn {
+.home-root .auth-btn {
   width: 100%;
   background: var(--coral-500);
   color: #FFFFFF;
@@ -352,9 +352,9 @@
   margin-bottom: 12px;
 }
 
-.auth-btn:disabled { opacity: 0.6; }
+.home-root .auth-btn:disabled { opacity: 0.6; }
 
-.auth-cancel {
+.home-root .auth-cancel {
   font-size: 13px;
   color: var(--ink-500);
   padding: 6px 0;

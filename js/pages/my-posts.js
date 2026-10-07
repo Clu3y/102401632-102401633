@@ -55,11 +55,11 @@ LF.pages = LF.pages || {};
           '<div class="modal-title">修改个人信息</div>' +
           '<div class="modal-subtitle">这些信息会展示在发布者名片中</div>' +
         '</div>' +
-        '<div class="modal-close" data-act="close-profile">✕</div></div>' +
+        '<div class="modal-close" data-act="close-profile">' + LF.icons.render('x') + '</div></div>' +
         '<div class="profile-form">' +
           '<label class="profile-field">' +
             '<span class="profile-field-label">昵称 <span class="required">*</span></span>' +
-            '<input class="form-input profile-input" data-profile-field="nickname" maxlength="50" placeholder="请输入昵称" value="' + esc(form.nickname || '') + '" />' +
+            '<input class="form-input profile-input" data-profile-field="nickname" maxlength="30" placeholder="请输入昵称" value="' + esc(form.nickname || '') + '" />' +
           '</label>' +
           '<div class="profile-field">' +
             '<span class="profile-field-label">头像</span>' +
@@ -93,9 +93,7 @@ LF.pages = LF.pages || {};
     return '<div class="post-card">' +
       '<div class="post-body">' +
         '<div class="post-cover">' +
-          (item.coverImageUrl
-            ? '<img src="' + esc(item.coverImageUrl) + '" class="cover-img" alt="" />'
-            : '<span class="cover-placeholder">📦</span>') +
+          LF.ui.coverHtml(item) +
         '</div>' +
         '<div class="post-info">' +
           '<div class="post-tags">' +
@@ -127,15 +125,15 @@ LF.pages = LF.pages || {};
       '<div class="modal-header"><div>' +
       '<div class="modal-title">更新信息状态</div>' +
       '<div class="modal-subtitle">' + esc(item.name) + '</div></div>' +
-      '<div class="modal-close" data-act="close-sheet">✕</div></div>' +
+      '<div class="modal-close" data-act="close-sheet">' + LF.icons.render('x') + '</div></div>' +
       '<div class="status-options">' +
         '<div class="status-option' + (!isClosed ? ' active ongoing' : '') + '" data-act="apply" data-action="start">' +
-          '<div class="status-option-icon amber">⏳</div>' +
+          '<div class="status-option-icon amber">' + LF.icons.render('hourglass') + '</div>' +
           '<div class="status-option-info">' +
           '<div class="status-option-label">' + (item.type === 'lost' ? '保持寻找中' : '保持待认领') + '</div>' +
           '<div class="status-option-desc">信息仍会出现在首页列表中</div></div></div>' +
         '<div class="status-option' + (isClosed ? ' active ' + closedClass : '') + '" data-act="apply" data-action="end">' +
-          '<div class="status-option-icon coral">✅</div>' +
+          '<div class="status-option-icon coral">' + LF.icons.render('circle-check') + '</div>' +
           '<div class="status-option-info">' +
           '<div class="status-option-label">' + (item.type === 'lost' ? '标记为已找回' : '标记为已归还') + '</div>' +
           '<div class="status-option-desc">信息将显著标注，避免继续被打扰</div></div></div>' +
@@ -144,33 +142,28 @@ LF.pages = LF.pages || {};
       '</div></div>';
   }
 
+  var requestVersion = 0;
   function render(root) {
-    // 全量重绘会重建滚动容器，先记录滚动位置，重绘后还原，避免更新状态/筛选后回到顶部
-    var scrollElBefore = root.querySelector('[data-role="scroll"]');
-    var savedScrollTop = scrollElBefore ? scrollElBefore.scrollTop : 0;
-    // 已打开的弹层先摘出并保留同一节点，重绘后原样插回：
-    // 既不会被 innerHTML 销毁，也不会因重建而重播上滑动画 / 丢失焦点（背景“弹一下”）
-    var keptProfile = root.querySelector('.profile-sheet-mask');
-    var keptStatus = root.querySelector('.status-sheet');
-    if (keptProfile) root.removeChild(keptProfile);
-    if (keptStatus) root.removeChild(keptStatus);
+    var snapshot = ui.capture(root);
+    var sheets = Array.from(root.querySelectorAll('.sheet-mask'));
+    var focused = document.activeElement;
     var listHtml = state.list.length > 0
-      ? '<div class="post-list" data-role="scroll"><div class="post-list-inner">' +
+      ? '<div class="post-list"><div class="post-list-inner">' +
         state.list.map(cardHtml).join('') +
         (state.loading ? '<div class="load-more">加载中…</div>'
-          : (!state.hasMore ? '<div class="load-more">没有更多了</div>' : '')) +
-        '<div class="rule-tip"><span class="tip-icon">ℹ️</span>' +
+          : (!state.hasMore ? '<div class="load-more">没有更多了</div>' : '<button class="load-more-button" data-act="more">加载更多</button>')) +
+        '<div class="rule-tip"><span class="tip-icon">' + LF.icons.render('info') + '</span>' +
         '<span class="tip-text">状态说明：寻物信息的结束状态为“已找回”，招领信息的结束状态为“已归还”。结束后的信息仍可查看，但会显著标注。</span></div>' +
         '<div style="height:20px;"></div></div></div>'
       : (!state.loading
-        ? '<div class="empty-state"><div class="empty-icon">📋</div>' +
+        ? '<div class="empty-state"><div class="empty-icon">' + LF.icons.render('clipboard-list') + '</div>' +
           '<div class="empty-title">这个分类下还没有信息</div>' +
           '<div class="empty-desc">切换到“全部”查看，或者发布一条新的失物 / 招领信息。</div>' +
           '<div class="empty-btn" data-act="go-publish">去发布</div></div>'
         : '<div class="post-list"><div class="load-more">加载中…</div></div>');
 
     root.innerHTML =
-      '<div class="my-posts-page page">' +
+      '<div class="my-posts-page page"><div class="page-scroll" data-role="scroll">' +
         '<header class="header">' +
           profileCardHtml() +
           '<div class="header-row my-posts-title-row">' +
@@ -190,15 +183,12 @@ LF.pages = LF.pages || {};
           '</div>' +
         '</header>' +
         listHtml +
-      '</div>';
+      '</div></div>';
 
-    var scrollElAfter = root.querySelector('[data-role="scroll"]');
-    if (scrollElAfter) scrollElAfter.scrollTop = savedScrollTop;
+    sheets.forEach(function (sheet) { root.appendChild(sheet); });
+    ui.restore(root, snapshot);
+    if (sheets.some(function (sheet) { return sheet.contains(focused); })) focused.focus({ preventScroll: true });
     bindScroll(root);
-
-    // 把摘出的弹层原节点插回（保持打开状态、不重播动画）
-    if (keptProfile) root.appendChild(keptProfile);
-    if (keptStatus) root.appendChild(keptStatus);
   }
 
   // 挂载时绑定一次 click 委托（状态弹层是 root 的子元素，同样由它处理）
@@ -220,7 +210,8 @@ LF.pages = LF.pages || {};
       var el = e.target.closest('[data-act]');
       if (!el || !root.contains(el)) return;
       var act = el.getAttribute('data-act');
-      if (act === 'go-publish') {
+      if (act === 'more') { loadList(root, false);
+      } else if (act === 'go-publish') {
         LF.router.go('#/publish');
       } else if (act === 'detail') {
         LF.router.go('#/detail?id=' + el.getAttribute('data-id'));
@@ -261,7 +252,12 @@ LF.pages = LF.pages || {};
     });
   }
 
-  function mountStatusSheet(root) {
+  function openSheet(root) {
+    var item = state.currentItem;
+    closeSheet(root);
+    if (!item) return;
+
+    state.currentItem = item;
     var wrap = document.createElement('div');
     wrap.innerHTML = statusSheetHtml();
     // 点击遮罩空白处关闭（内容区按钮由 root 上的委托统一处理）
@@ -272,32 +268,11 @@ LF.pages = LF.pages || {};
     root.appendChild(sheet);
   }
 
-  function openSheet(root) {
-    var item = state.currentItem;
-    closeSheet(root);
-    if (!item) return;
-
-    state.currentItem = item;
-    mountStatusSheet(root);
-  }
-
   function closeSheet(root) {
     var sheet = root.querySelector('.status-sheet');
     if (sheet) sheet.remove();
     state.statusModalVisible = false;
     state.currentItem = null;
-  }
-
-  function mountProfileSheet(root) {
-    var wrap = document.createElement('div');
-    wrap.innerHTML = profileSheetHtml();
-    var mask = wrap.firstChild;
-    mask.addEventListener('click', function (e) {
-      if (e.target === mask) closeProfileSheet(root);
-    });
-    root.appendChild(mask);
-    // 不在打开时自动 focus 输入框：移动端会立刻唤起键盘并在弹层上滑动画期间触发
-    // 滚动对齐，把背景页面“顶一下”；需要输入时用户点击对应输入框即可。
   }
 
   function openProfileSheet(root) {
@@ -309,7 +284,17 @@ LF.pages = LF.pages || {};
       college: user.college || '',
       grade: user.grade || ''
     };
-    mountProfileSheet(root);
+
+    var wrap = document.createElement('div');
+    wrap.innerHTML = profileSheetHtml();
+    var mask = wrap.firstChild;
+    mask.addEventListener('click', function (e) {
+      if (e.target === mask) closeProfileSheet(root);
+    });
+    root.appendChild(mask);
+
+    var input = root.querySelector('[data-profile-field="nickname"]');
+    if (input) input.focus();
   }
 
   function closeProfileSheet(root) {
@@ -325,7 +310,10 @@ LF.pages = LF.pages || {};
     if (!preview) return;
     preview.innerHTML = avatarInnerHtml({ avatarUrl: avatarUrl || '' });
     var uploadBtn = root.querySelector('[data-act="choose-avatar"]');
-    if (uploadBtn) uploadBtn.textContent = avatarUrl ? '重新上传' : '上传头像';
+    if (uploadBtn) {
+      uploadBtn.classList.remove('disabled');
+      uploadBtn.textContent = avatarUrl ? '重新上传' : '上传头像';
+    }
   }
 
   function uploadProfileAvatar(file, root) {
@@ -349,13 +337,14 @@ LF.pages = LF.pages || {};
     ui.showLoading('头像上传中…');
 
     LF.api.uploadImage(file).then(function (result) {
+      if (!root.isConnected || state.profileForm !== form) return;
       ui.hideLoading();
       state.profileAvatarUploading = false;
-      if (state.profileForm !== form) return;
       if (!result || !result.url) throw new Error('上传结果缺少图片地址');
       state.profileForm.avatarUrl = result.url;
       updateAvatarPreview(root, result.url);
     }).catch(function (err) {
+      if (!root.isConnected || state.profileForm !== form) return;
       ui.hideLoading();
       state.profileAvatarUploading = false;
       if (state.profileForm === form) updateAvatarPreview(root, form.avatarUrl);
@@ -371,8 +360,8 @@ LF.pages = LF.pages || {};
     if (state.profileSaving || !state.profileForm) return;
     var form = state.profileForm;
     var nickname = (form.nickname || '').trim();
-    if (!nickname) {
-      ui.toast('请输入昵称', 'error');
+    if (!nickname || nickname.length > 30) {
+      ui.toast('昵称需要 1–30 个字', 'error');
       var nicknameInput = root.querySelector('[data-profile-field="nickname"]');
       if (nicknameInput) nicknameInput.focus();
       return;
@@ -393,6 +382,7 @@ LF.pages = LF.pages || {};
     }
 
     LF.api.updateCurrentUser(payload).then(function (user) {
+      if (!root.isConnected || !LF.auth.getUserInfo() || LF.auth.getUserInfo().id !== user.id) return;
       state.profileSaving = false;
       state.user = user || payload;
       LF.auth.setUserInfo(state.user);
@@ -400,6 +390,7 @@ LF.pages = LF.pages || {};
       render(root);
       ui.toast('个人信息已更新', 'success', 500);
     }).catch(function (err) {
+      if (!root.isConnected || state.profileForm !== form) return;
       state.profileSaving = false;
       if (saveBtn) {
         saveBtn.classList.remove('disabled');
@@ -411,17 +402,20 @@ LF.pages = LF.pages || {};
 
   function loadProfile(root) {
     return LF.api.getCurrentUser().then(function (user) {
-      if (!user) return;
+      if (!user || !root.isConnected) return;
       state.user = user;
       LF.auth.setUserInfo(user);
-      render(root);
+      var card = root.querySelector('.profile-card');
+      if (card) card.outerHTML = profileCardHtml();
     }).catch(function (err) {
       // 个人资料读取失败时继续展示本地缓存，不阻塞“我的发布”列表
       console.warn('获取个人信息失败:', err && err.message ? err.message : err);
     });
   }
 
+  var statusSaving = false;
   function applyStatus(root, action) {
+    if (statusSaving) return;
     var item = state.currentItem;
     if (!item) return;
     var isLost = item.type === 'lost';
@@ -435,23 +429,30 @@ LF.pages = LF.pages || {};
       closeSheet(root);
       return;
     }
+    statusSaving = true;
     LF.api.updateItemStatus(item.id, targetStatus).then(function () {
+      statusSaving = false;
+      if (!root.isConnected) return;
       ui.toast('状态已更新', 'success', 500);
       closeSheet(root);
       loadList(root, true);
     }).catch(function (err) {
+      if (!root.isConnected) return;
+      statusSaving = false;
       ui.toast(err.message || '更新失败', 'error');
     });
   }
 
   function loadList(root, reset) {
-    if (state.loading) return Promise.resolve();
+    if (!reset && (state.loading || !state.hasMore)) return Promise.resolve();
+    var version = ++requestVersion;
     var page = reset ? 1 : state.page;
     state.loading = true;
     render(root);
 
     return LF.api.getMyItems({ scope: state.scope, page: page, pageSize: state.pageSize })
       .then(function (data) {
+        if (version !== requestVersion || !root.isConnected) return;
         var records = (data.records || []).map(function (item) {
           LF.urlUtil.resolveItemImages(item);
           item.timeText = LF.format.formatDateTimeShort(item.publishedAt);
@@ -467,11 +468,12 @@ LF.pages = LF.pages || {};
         render(root);
       })
       .catch(function (err) {
+        if (version !== requestVersion || !root.isConnected) return;
         state.loading = false;
         render(root);
         // token 失效时重新登录后重试（对应小程序对“未登录”的处理）
-        if (err.message && err.message.indexOf('未登录') > -1) {
-          LF.auth.doLogin().then(function () { loadList(root, true); }).catch(function () {});
+        if (!LF.auth.isAuthorized()) {
+          LF.auth.requestLogin('#/my');
         } else {
           ui.toast(err.message || '加载失败', 'error');
         }
@@ -479,8 +481,17 @@ LF.pages = LF.pages || {};
   }
 
   LF.pages.myPosts = {
+    reset: function () {
+      requestVersion++; statusSaving = false;
+      state.user = {}; state.list = []; state.summary = { total: 0, ongoing: 0, closed: 0 };
+      state.currentItem = null; state.profileForm = null; state.profileSaving = false; state.profileAvatarUploading = false; state.inited = false;
+    },
     mount: function (main) {
+      requestVersion++; state.loading = true; state.list = []; state.scope = 'all';
+      state.user = LF.auth.getUserInfo() || {}; state.summary = { total: 0, ongoing: 0, closed: 0 };
+      state.currentItem = null; state.profileForm = null; state.profileSaving = false; state.profileAvatarUploading = false;
       var root = document.createElement('div');
+      root.className = 'my-posts-root';
       root.style.flex = '1';
       root.style.minHeight = '0';
       root.style.display = 'flex';
@@ -489,20 +500,7 @@ LF.pages = LF.pages || {};
       render(root);
       bindClickEvents(root);
 
-      if (!state.inited) {
-        state.inited = true;
-        LF.auth.ensureLogin().then(function () {
-          return loadProfile(root);
-        }).then(function () {
-          loadList(root, true);
-        }).catch(function () {
-          ui.toast('请先登录', 'error');
-        });
-      } else {
-        // 从发布成功页等入口再次进入时，强制重新查询，确保列表和统计立即更新
-        loadProfile(root);
-        loadList(root, true);
-      }
+      loadProfile(root).then(function () { if (root.isConnected) loadList(root, true); });
     }
   };
 })(window.LF);

@@ -8,26 +8,26 @@ LF.pages = LF.pages || {};
   LF.pages.publishSuccess = {
     mount: function (main, query) {
       query = query || {};
-      var type = query.type || 'lost';
+      var type = query.type === 'found' ? 'found' : 'lost';
       var isFound = type === 'found';
-      var name = query.name ? decodeURIComponent(query.name) : '';
-      var itemNo = query.itemNo ? decodeURIComponent(query.itemNo) : '';
+      var name = query.name ? query.name : '';
+      var itemNo = query.itemNo ? query.itemNo : '';
       var userInfo = LF.auth.getUserInfo();
       var accountText = userInfo
         ? esc(userInfo.nickname || '') + (userInfo.college ? ' · ' + esc(userInfo.college) : '')
         : '';
 
       var root = document.createElement('div');
-      root.className = 'page';
+      root.className = 'page success-root';
       root.innerHTML =
         '<div class="page-flow">' +
           '<div class="success-page">' +
             '<div class="hero">' +
-              '<div class="success-icon">✅</div>' +
+              '<div class="success-icon">' + LF.icons.render('circle-check') + '</div>' +
               '<div class="success-title">发布成功</div>' +
               '<div class="success-desc">' +
                 '<div class="success-desc-line">你的信息已经发布到校园失物招领平台，</div>' +
-                '<div class="success-desc-line">同校同学现在可以在首页和搜索中看到它。</div>' +
+                '<div class="success-desc-line">当前浏览器可在首页和搜索中查看这条信息。</div>' +
               '</div>' +
             '</div>' +
 
@@ -41,9 +41,9 @@ LF.pages = LF.pages || {};
               '<div class="receipt-info">' +
                 '<div class="receipt-row"><span class="receipt-label">信息编号</span><span class="receipt-value">' + esc(itemNo) + '</span></div>' +
                 (userInfo ? '<div class="receipt-row"><span class="receipt-label">发布账号</span><span class="receipt-value">' + accountText + '</span></div>' : '') +
-                '<div class="receipt-row"><span class="receipt-label">可见范围</span><span class="receipt-value">同校同学可见</span></div>' +
+                '<div class="receipt-row"><span class="receipt-label">可见范围</span><span class="receipt-value">当前浏览器本地</span></div>' +
               '</div>' +
-              '<div class="next-tip"><span class="tip-icon">🔔</span>' +
+              '<div class="next-tip"><span class="tip-icon">' + LF.icons.render('bell') + '</span>' +
               '<span class="tip-text">有同学联系你时，请先核对物品特征再约时间地点；物品找回后记得在“我的发布”里更新状态。</span></div>' +
             '</div>' +
 
@@ -58,9 +58,9 @@ LF.pages = LF.pages || {};
             '</div>' +
 
             '<div class="links">' +
-              '<div class="link-card" data-act="go-search"><span class="link-icon">🔍</span>' +
+              '<div class="link-card" data-act="go-search"><span class="link-icon">' + LF.icons.render('search') + '</span>' +
               '<span class="link-title">去搜索线索</span><span class="link-sub">按物品名称查找</span></div>' +
-              '<div class="link-card" data-act="go-home"><span class="link-icon">🏠</span>' +
+              '<div class="link-card" data-act="go-home"><span class="link-icon">' + LF.icons.render('house') + '</span>' +
               '<span class="link-title">返回首页</span><span class="link-sub">浏览最新信息</span></div>' +
             '</div>' +
           '</div>' +

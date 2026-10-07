@@ -4,7 +4,7 @@
  */
 const { describe, it, beforeEach } = require('node:test');
 const assert = require('node:assert/strict');
-const { createEnv } = require('./helpers/env.js');
+const { createEnv, loginDemo } = require('./helpers/env.js');
 
 let LF, localStorage;
 
@@ -59,7 +59,7 @@ describe('本地数据库 db', () => {
 
   describe('持久化与重置', () => {
     it('发布后数据写入 localStorage，刷新（重新 load）仍在', async () => {
-      await LF.api.login('web_demo', {});
+      await loginDemo(LF);
       await LF.api.createItem({
         type: 'lost', name: '持久化测试物品', categoryCode: 'digital',
         location: '测试地点', occurredAt: LF.db.formatTs(new Date(Date.now() - 600000)),
@@ -72,7 +72,7 @@ describe('本地数据库 db', () => {
     });
 
     it('resetDemo 恢复为 14 条种子数据', async () => {
-      await LF.api.login('web_demo', {});
+      await loginDemo(LF);
       await LF.api.createItem({
         type: 'found', name: '待重置物品', categoryCode: 'digital',
         location: '地点', occurredAt: LF.db.formatTs(new Date(Date.now() - 600000)),

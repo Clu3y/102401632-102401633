@@ -1,8 +1,8 @@
 /* data/local-api.js — 浏览器本地“后端服务”
- * 在浏览器内实现原 Spring Boot 后端的全部业务接口（登录、列表、搜索、详情、
+ * 在浏览器内提供本地演示业务接口（登录、列表、搜索、详情、
  * 联系方式、发布、状态更新、我的发布、个人资料、图片上传），数据经 db.js
  * 持久化到 localStorage。方法签名、返回结构与 js/utils/api.js 完全一致，
- * 因此各页面脚本无需任何改动。
+ * 不代表与上级 Java 后端的 HTTP 协议相同。
  *
  * 所有方法均返回 Promise，并用很短的延时模拟网络请求，保持原有 loading 体验。
  */
@@ -42,15 +42,15 @@ window.LF = window.LF || {};
 
   function currentState() { return LF.db.load(); }
 
-  function currentUser() {
-    var st = currentState();
-    return st.users.filter(function (u) { return u.id === st.currentUserId; })[0] || null;
-  }
-
-  function requireUser() {
-    var u = currentUser();
-    if (!u) throw new Error('未登录或登录已失效，请重新登录');
-    return u;
+  function currentUser() { return LF.accounts.currentUser(); }
+  function requireUser() { return LF.accounts.requireUser(); }
+  function protectedCall(change, ms, write) {
+    var saved;
+    try { requireUser(); saved = LF.accounts.snapshot(); } catch (error) { return Promise.reject(error); }
+    return delay(function () {
+      LF.accounts.assertSnapshot(saved);
+      return write ? LF.db.transaction(change) : change();
+    }, ms);
   }
 
   function findItem(id) {
@@ -79,7 +79,7 @@ window.LF = window.LF || {};
   }
 
   function coverOf(item) {
-    return item.images && item.images.length ? item.images[0] : null;
+    return LF.media.resolve(item).coverImageUrl;
   }
 
   /** ItemSummaryVO —— 首页 / 搜索列表项 */
@@ -95,6 +95,7 @@ window.LF = window.LF || {};
       categoryCode: item.categoryCode,
       categoryText: categoryText(item.categoryCode),
       coverImageUrl: coverOf(item),
+      mediaKind: LF.media.resolve(item).mediaKind,
       location: item.location,
       occurredAt: item.occurredAt,
       publishedAt: item.publishedAt
@@ -136,54 +137,6 @@ window.LF = window.LF || {};
     };
   }
 
-  /* ---------------- 登录 ---------------- */
-  function login(code, profile) {
-    var st = currentState();
-    var user = st.users.filter(function (u) { return u.code === code; })[0] || null;
-
-    if (!user) {
-      // 首次访问：把匿名 code 绑定到内置演示账号，让“我的发布”直接有数据；
-      // 演示账号已被绑定后，再为新 code 创建普通账号。
-      var demo = st.users.filter(function (u) { return u.id === st.demoUserId; })[0];
-      if (demo && !demo.code) {
-        demo.code = code;
-        user = demo;
-      } else {
-        user = {
-          id: LF.db.nextUserId(),
-          code: code,
-          nickname: '同学' + Math.floor(1000 + Math.random() * 9000),
-          avatarUrl: null,
-          college: null,
-          grade: null
-        };
-        st.users.push(user);
-      }
-    }
-
-    if (profile) {
-      if (profile.nickname && String(profile.nickname).trim()) {
-        user.nickname = String(profile.nickname).trim();
-      }
-      ['avatarUrl', 'college', 'grade'].forEach(function (k) {
-        if (profile[k] !== undefined) {
-          var v = profile[k];
-          user[k] = (v === null || String(v).trim() === '') ? null : String(v).trim();
-        }
-      });
-    }
-
-    st.currentUserId = user.id;
-    LF.db.save();
-
-    return delay({
-      token: 'local_token_' + user.id + '_' + Date.now().toString(36),
-      tokenType: 'Bearer',
-      expiresIn: 604800,
-      user: userVO(user)
-    });
-  }
-
   /* ---------------- 首页列表 ---------------- */
   function getItems(params) {
     return delay(function () {
@@ -201,14 +154,24 @@ window.LF = window.LF || {};
   function searchItems(params) {
     return delay(function () {
       params = params || {};
-      var keyword = (params.keyword || '').trim().toLowerCase();
+      var keyword = String(params.keyword || '').trim().toLowerCase();
+      var location = String(params.location || '').trim().toLowerCase();
       var list = currentState().items.filter(function (it) {
         if (params.type && params.type !== 'all' && it.type !== params.type) return false;
-        if (!keyword) return true;
+        if (params.categoryCode && it.categoryCode !== params.categoryCode) return false;
+        if (location && it.location.toLowerCase().indexOf(location) < 0) return false;
+        if (params.status === 'ongoing' && !ONGOING_STATUS[it.status]) return false;
+        if (params.status === 'closed' && ONGOING_STATUS[it.status]) return false;
         var hay = [it.name, it.location, it.description || '', it.itemNo].join(' ').toLowerCase();
-        return hay.indexOf(keyword) > -1;
+        return !keyword || hay.indexOf(keyword) > -1;
       });
-      var result = paginate(sortByPublishedDesc(list), params);
+      var sort = params.sort || 'newest';
+      list.sort(function (a, b) {
+        var field = sort === 'occurred' ? 'occurredAt' : 'publishedAt';
+        var direction = sort === 'oldest' ? 1 : -1;
+        return (a[field] === b[field] ? a.id - b.id : (a[field] < b[field] ? -1 : 1)) * direction;
+      });
+      var result = paginate(list, params);
       result.records = result.records.map(summaryVO);
       return result;
     });
@@ -225,8 +188,12 @@ window.LF = window.LF || {};
 
       // 浏览量 +1（发布者本人不计）
       if (!me || me.id !== item.publisherId) {
-        item.viewCount = (item.viewCount || 0) + 1;
-        LF.db.save();
+        item = LF.db.transaction(function (draft) {
+          var stored = draft.items.filter(function (it) { return it.id === item.id; })[0];
+          stored.viewCount = (stored.viewCount || 0) + 1;
+          return stored;
+        });
+        st = currentState();
       }
 
       // 同类型推荐：进行中优先，再按发布时间倒序，最多 2 条
@@ -246,7 +213,9 @@ window.LF = window.LF || {};
           occurredAt: it.occurredAt,
           status: it.status,
           statusText: STATUS_TEXT[it.status],
-          coverImageUrl: coverOf(it)
+          coverImageUrl: coverOf(it),
+          mediaKind: LF.media.resolve(it).mediaKind,
+          categoryCode: it.categoryCode
         };
       });
 
@@ -264,7 +233,8 @@ window.LF = window.LF || {};
         occurredAt: item.occurredAt,
         description: item.description,
         message: item.message,
-        images: item.images.slice(),
+        images: LF.media.resolve(item).images,
+        mediaKind: LF.media.resolve(item).mediaKind,
         publisher: publisher ? publisherVO(publisher) : null,
         viewCount: item.viewCount,
         publishedAt: item.publishedAt,
@@ -276,7 +246,7 @@ window.LF = window.LF || {};
 
   /* ---------------- 联系方式 ---------------- */
   function getItemContact(id) {
-    return delay(function () {
+    return protectedCall(function () {
       requireUser();
       var item = findItem(id);
       if (!item) throw new Error('信息不存在或已被删除');
@@ -292,7 +262,7 @@ window.LF = window.LF || {};
 
   /* ---------------- 发布 ---------------- */
   function createItem(data) {
-    return delay(function () {
+    return protectedCall(function () {
       var me = requireUser();
       data = data || {};
 
@@ -341,7 +311,6 @@ window.LF = window.LF || {};
         meetingPlace: (data.meetingPlace || '').trim() || null
       };
       st.items.push(item);
-      LF.db.save();
 
       return {
         id: item.id,
@@ -353,12 +322,12 @@ window.LF = window.LF || {};
         name: item.name,
         publishedAt: item.publishedAt
       };
-    }, 260);
+    }, 260, true);
   }
 
   /* ---------------- 状态更新 ---------------- */
   function updateItemStatus(id, status) {
-    return delay(function () {
+    return protectedCall(function () {
       var me = requireUser();
       var item = findItem(id);
       if (!item) throw new Error('信息不存在或已被删除');
@@ -367,19 +336,18 @@ window.LF = window.LF || {};
         throw new Error('非法的状态变更，请刷新后重试');
       }
       item.status = status; // 幂等：重复设置同一状态也成功
-      LF.db.save();
       return {
         id: item.id,
         status: item.status,
         statusText: STATUS_TEXT[item.status],
         updatedAt: LF.db.formatTs(new Date())
       };
-    });
+    }, undefined, true);
   }
 
   /* ---------------- 我的发布 ---------------- */
   function getMyItems(params) {
-    return delay(function () {
+    return protectedCall(function () {
       var me = requireUser();
       params = params || {};
       var mine = currentState().items.filter(function (it) { return it.publisherId === me.id; });
@@ -405,22 +373,22 @@ window.LF = window.LF || {};
 
   /* ---------------- 当前用户资料 ---------------- */
   function getCurrentUser() {
-    return delay(function () { return userVO(requireUser()); });
+    return protectedCall(function () { return userVO(requireUser()); });
   }
 
   function updateCurrentUser(data) {
-    return delay(function () {
+    return protectedCall(function () {
       var me = requireUser();
       data = data || {};
       var nickname = (data.nickname || '').trim();
       if (!nickname) throw new Error('昵称不能为空');
+      if (nickname.length > 30) throw new Error('昵称不能超过 30 个字');
       me.nickname = nickname;
       me.avatarUrl = (data.avatarUrl || '').trim() || null;
       me.college = (data.college || '').trim() || null;
       me.grade = (data.grade || '').trim() || null;
-      LF.db.save();
       return userVO(me);
-    });
+    }, undefined, true);
   }
 
   /* ---------------- 图片上传（本地读取 + 压缩） ----------------
@@ -453,6 +421,8 @@ window.LF = window.LF || {};
   }
 
   function uploadImage(file) {
+    var saved;
+    try { requireUser(); saved = LF.accounts.snapshot(); } catch (error) { return Promise.reject(error); }
     if (!file) return fail('请选择要上传的图片');
     if (['image/jpeg', 'image/png', 'image/webp'].indexOf(file.type) === -1) {
       return fail('仅支持 JPG、PNG、WEBP 格式图片');
@@ -461,12 +431,15 @@ window.LF = window.LF || {};
       return fail('图片大小不能超过 5 MB');
     }
     return fileToDataUrl(file, 900, 0.85).then(function (dataUrl) {
+      LF.accounts.assertSnapshot(saved);
       return { url: dataUrl, size: dataUrl.length, contentType: 'image/jpeg' };
     });
   }
 
   LF.localApi = {
-    login: login,
+    register: LF.accounts.register,
+    login: LF.accounts.login,
+    logout: LF.accounts.logout,
     getItems: getItems,
     searchItems: searchItems,
     getItemDetail: getItemDetail,
@@ -478,6 +451,6 @@ window.LF = window.LF || {};
     updateCurrentUser: updateCurrentUser,
     uploadImage: uploadImage,
     // 便于调试 / 演示页“恢复演示数据”
-    resetDemo: function () { LF.db.reset(); return Promise.resolve(true); }
+    resetDemo: function () { return LF.accounts.logout().then(function () { LF.db.reset(); return true; }); }
   };
 })(window.LF);

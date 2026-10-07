@@ -1,11 +1,11 @@
 /* detail.css — 详情页（由 pages/detail/index.wxss 转换） */
 
-.detail-page {
+.detail-root .detail-page {
   min-height: 100%;
   background: var(--coral-50);
 }
 
-.loading {
+.detail-root .loading {
   text-align: center;
   padding: 50px 0;
   color: var(--ink-500);
@@ -13,7 +13,7 @@
 }
 
 /* 主视觉轮播 */
-.hero {
+.detail-root .hero {
   position: relative;
   width: 100%;
   height: 196px;
@@ -21,7 +21,7 @@
   background: linear-gradient(135deg, var(--coral-100), var(--coral-200), var(--coral-300));
 }
 
-.hero-swiper {
+.detail-root .hero-swiper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -29,33 +29,33 @@
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
-.hero-swiper::-webkit-scrollbar { display: none; }
+.detail-root .hero-swiper::-webkit-scrollbar { display: none; }
 
-.hero-slide {
+.detail-root .hero-slide {
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: center;
 }
 
-.hero-img {
+.detail-root .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   cursor: pointer;
 }
 
-.hero-placeholder {
+.detail-root .hero-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hero-placeholder-icon {
+.detail-root .hero-placeholder-icon {
   font-size: 60px;
   opacity: 0.4;
 }
 
-.hero-dots {
+.detail-root .hero-dots {
   position: absolute;
   bottom: 10px;
   left: 0;
@@ -65,7 +65,7 @@
   gap: 5px;
 }
 
-.hero-dot {
+.detail-root .hero-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -73,28 +73,28 @@
   transition: all 0.2s;
 }
 
-.hero-dot.active {
+.detail-root .hero-dot.active {
   background: #FFFFFF;
   width: 14px;
   border-radius: 3px;
 }
 
 /* 区块 */
-.section { margin: 12px 20px 0; }
+.detail-root .section { margin: 12px 20px 0; }
 
-.badge-row {
+.detail-root .badge-row {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.item-no {
+.detail-root .item-no {
   margin-left: auto;
   font-size: 11px;
   color: var(--ink-300);
 }
 
-.detail-title {
+.detail-root .detail-title {
   margin-top: 10px;
   font-size: 18px;
   font-weight: 700;
@@ -102,7 +102,7 @@
   line-height: 1.4;
 }
 
-.privacy-note {
+.detail-root .privacy-note {
   margin-top: 8px;
   font-size: 11px;
   line-height: 1.6;
@@ -110,16 +110,16 @@
 }
 
 /* 信息列表 */
-.info-list { margin-top: 14px; }
+.detail-root .info-list { margin-top: 14px; }
 
-.info-row {
+.detail-root .info-row {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 8px 0;
 }
 
-.info-icon {
+.detail-root .info-icon {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -131,14 +131,14 @@
   flex-shrink: 0;
 }
 
-.info-content { flex: 1; }
+.detail-root .info-content { flex: 1; }
 
-.info-label {
+.detail-root .info-label {
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.info-value {
+.detail-root .info-value {
   margin-top: 2px;
   font-size: 13px;
   font-weight: 500;
@@ -147,13 +147,13 @@
 }
 
 /* 描述 */
-.section-title {
+.detail-root .section-title {
   font-size: 14px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.desc-text {
+.detail-root .desc-text {
   margin-top: 8px;
   font-size: 12.5px;
   line-height: 1.7;
@@ -162,21 +162,21 @@
 }
 
 /* 推荐 */
-.section-header {
+.detail-root .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.section-link {
+.detail-root .section-link {
   font-size: 11px;
   color: var(--coral-500);
   cursor: pointer;
 }
 
-.related-list { margin-top: 10px; }
+.detail-root .related-list { margin-top: 10px; }
 
-.related-item {
+.detail-root .related-item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -187,7 +187,7 @@
   cursor: pointer;
 }
 
-.related-icon {
+.detail-root .related-icon {
   width: 36px;
   height: 36px;
   border-radius: 7px;
@@ -199,12 +199,12 @@
   flex-shrink: 0;
 }
 
-.related-info {
+.detail-root .related-info {
   flex: 1;
   min-width: 0;
 }
 
-.related-name {
+.detail-root .related-name {
   font-size: 12.5px;
   font-weight: 500;
   color: var(--ink-900);
@@ -213,7 +213,7 @@
   white-space: nowrap;
 }
 
-.related-meta {
+.detail-root .related-meta {
   margin-top: 2px;
   font-size: 11px;
   color: var(--ink-500);
@@ -222,10 +222,10 @@
   white-space: nowrap;
 }
 
-.related-status { flex-shrink: 0; }
+.detail-root .related-status { flex-shrink: 0; }
 
 /* 安全提示 */
-.safety-tip {
+.detail-root .safety-tip {
   margin: 12px 20px 0;
   background: #FFFFFF;
   border: 1px solid var(--coral-100);
@@ -235,23 +235,23 @@
   gap: 8px;
 }
 
-.safety-tip .tip-icon { font-size: 14px; flex-shrink: 0; }
+.detail-root .safety-tip .tip-icon { font-size: 14px; flex-shrink: 0; }
 
-.safety-tip .tip-text {
+.detail-root .safety-tip .tip-text {
   font-size: 11px;
   line-height: 1.6;
   color: var(--ink-700);
 }
 
 /* 底部操作栏（横向） */
-.bottom-bar-row {
+.detail-root .bottom-bar-row {
   flex-direction: row !important;
   gap: 12px;
   padding: 10px 20px !important;
   padding-bottom: calc(10px + env(safe-area-inset-bottom)) !important;
 }
 
-.bottom-bar-row .bar-btn {
+.detail-root .bottom-bar-row .bar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -262,7 +262,7 @@
   padding: 12px 0;
 }
 
-.bottom-bar-row .bar-btn.outline {
+.detail-root .bottom-bar-row .bar-btn.outline {
   width: 88px;
   flex-shrink: 0;
   border: 1px solid var(--coral-300);
@@ -272,7 +272,7 @@
   cursor: pointer;
 }
 
-.bottom-bar-row .bar-btn.primary {
+.detail-root .bottom-bar-row .bar-btn.primary {
   flex: 1;
   background: var(--coral-500);
   color: #FFFFFF;
@@ -281,25 +281,25 @@
 }
 
 /* 联系方式底部弹层 */
-.sheet-content .modal-header {
+.detail-root .sheet-content .modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.sheet-content .modal-title {
+.detail-root .sheet-content .modal-title {
   font-size: 16px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.sheet-content .modal-subtitle {
+.detail-root .sheet-content .modal-subtitle {
   margin-top: 4px;
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.sheet-content .modal-close {
+.detail-root .sheet-content .modal-close {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -312,14 +312,14 @@
   cursor: pointer;
 }
 
-.contact-loading {
+.detail-root .contact-loading {
   padding: 24px 0;
   text-align: center;
   color: var(--ink-500);
   font-size: 13px;
 }
 
-.contact-item {
+.detail-root .contact-item {
   margin-top: 12px;
   background: var(--coral-50);
   border-radius: 10px;
@@ -329,7 +329,7 @@
   gap: 10px;
 }
 
-.contact-icon {
+.detail-root .contact-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -341,14 +341,14 @@
   flex-shrink: 0;
 }
 
-.contact-info { flex: 1; min-width: 0; }
+.detail-root .contact-info { flex: 1; min-width: 0; }
 
-.contact-label {
+.detail-root .contact-label {
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.contact-value {
+.detail-root .contact-value {
   margin-top: 2px;
   font-size: 14px;
   font-weight: 600;
@@ -357,7 +357,7 @@
   word-break: break-all;
 }
 
-.contact-action {
+.detail-root .contact-action {
   flex-shrink: 0;
   padding: 5px 12px;
   border-radius: 100px;
@@ -368,13 +368,13 @@
   cursor: pointer;
 }
 
-.contact-publisher {
+.detail-root .contact-publisher {
   margin-top: 10px;
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.modal-btn {
+.detail-root .modal-btn {
   margin-top: 16px;
   width: 100%;
   background: var(--coral-500);

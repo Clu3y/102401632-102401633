@@ -9,7 +9,7 @@ LF.pages = LF.pages || {};
     mount: function (main, query) {
       var id = query && query.id;
       var root = document.createElement('div');
-      root.className = 'page';
+      root.className = 'page detail-root';
       main.appendChild(root);
 
       if (!id) {
@@ -29,7 +29,7 @@ LF.pages = LF.pages || {};
       function heroHtml(detail) {
         if (detail.images && detail.images.length > 0) {
           var slides = detail.images.map(function (url) {
-            return '<div class="hero-slide"><img src="' + esc(url) + '" class="hero-img" data-act="preview" data-url="' + esc(url) + '" alt="" /></div>';
+            return '<div class="hero-slide">' + ui.imageHtml(url, detail, 'hero-img', true, false) + '</div>';
           }).join('');
           var dots = detail.images.length > 1
             ? '<div class="hero-dots">' + detail.images.map(function (_, i) {
@@ -38,7 +38,8 @@ LF.pages = LF.pages || {};
             : '';
           return '<div class="hero"><div class="hero-swiper" data-role="swiper">' + slides + '</div>' + dots + '</div>';
         }
-        return '<div class="hero hero-placeholder"><span class="hero-placeholder-icon">📦</span></div>';
+        var cover = ui.coverUrl(detail);
+        return '<div class="hero hero-placeholder">' + ui.imageHtml(cover, detail, 'hero-img', false, false) + '</div>';
       }
 
       function infoRow(icon, label, value) {
@@ -54,17 +55,17 @@ LF.pages = LF.pages || {};
 
         var parts = [];
         if (c.contactType === 'wechat') {
-          parts.push('<div class="contact-item"><div class="contact-icon">💬</div><div class="contact-info">' +
-            '<div class="contact-label">微信号</div><div class="contact-value">' + esc(c.contactValue) + '</div></div>' +
+          parts.push('<div class="contact-item"><div class="contact-icon">' + LF.icons.render('message-circle') + '</div><div class="contact-info">' +
+            '<div class="contact-label">微信号</div><input class="contact-value" aria-label="微信号，可手动复制" readonly value="' + esc(c.contactValue) + '" /></div>' +
             '<div class="contact-action" data-act="copy-contact">复制</div></div>');
         }
         if (c.contactType === 'mobile') {
-          parts.push('<div class="contact-item"><div class="contact-icon">📞</div><div class="contact-info">' +
-            '<div class="contact-label">手机号</div><div class="contact-value">' + esc(c.contactValue) + '</div></div>' +
+          parts.push('<div class="contact-item"><div class="contact-icon">' + LF.icons.render('phone') + '</div><div class="contact-info">' +
+            '<div class="contact-label">手机号</div><input class="contact-value" aria-label="手机号，可手动复制" readonly value="' + esc(c.contactValue) + '" /></div>' +
             '<div class="contact-action" data-act="call-phone">拨打</div></div>');
         }
         if (c.meetingPlace) {
-          parts.push('<div class="contact-item"><div class="contact-icon">📍</div><div class="contact-info">' +
+          parts.push('<div class="contact-item"><div class="contact-icon">' + LF.icons.render('map-pin') + '</div><div class="contact-info">' +
             '<div class="contact-label">方便交接的位置</div><div class="contact-value">' + esc(c.meetingPlace) + '</div></div></div>');
         }
         if (c.publisherName) {
@@ -78,7 +79,7 @@ LF.pages = LF.pages || {};
           '<div class="modal-header"><div>' +
           '<div class="modal-title">联系发布者</div>' +
           '<div class="modal-subtitle">以下信息由发布者主动提供，请文明沟通</div></div>' +
-          '<div class="modal-close" data-act="close-contact">✕</div></div>' +
+          '<div class="modal-close" data-act="close-contact">' + LF.icons.render('x') + '</div></div>' +
           '<div data-role="sheet-body">' + contactBodyHtml() + '</div>' +
           '<div class="modal-btn" data-act="sheet-confirm">我知道了</div>' +
           '</div></div>';
@@ -101,7 +102,7 @@ LF.pages = LF.pages || {};
             '<span class="section-link" data-act="go-search">搜索更多</span></div><div class="related-list">' +
             d.relatedItems.map(function (r) {
               return '<div class="related-item" data-act="related" data-id="' + r.id + '">' +
-                '<div class="related-icon">📌</div>' +
+                '<div class="related-icon">' + LF.icons.render('pin') + '</div>' +
                 '<div class="related-info"><div class="related-name">' + esc(r.name) + '</div>' +
                 '<div class="related-meta">' + esc(r.location) + ' · ' + esc(r.occurredText) + '</div></div>' +
                 '<span class="tag-' + esc(r.status) + ' related-status">' + esc(r.statusText) + '</span></div>';
@@ -119,15 +120,16 @@ LF.pages = LF.pages || {};
                 '<span class="item-no">编号 ' + esc(d.itemNo) + '</span>' +
               '</div>' +
               '<div class="detail-title">' + esc(d.name) + '</div>' +
+              (d.mediaKind === 'demo' ? '<div class="demo-media-note">演示配图仅作物品类型参考，品牌、贴纸等细节以文字描述为准。</div>' : '') +
               (d.categoryCode === 'id_card'
-                ? '<div class="privacy-note">为保护隐私，证件类物品不展示完整姓名与学号，请核对照片与特征后联系。</div>' : '') +
+                ? '<div class="privacy-note">发布证件照片前请遮挡完整姓名、学号与号码；联系时请先核对物品特征。</div>' : '') +
               '<div class="info-list">' +
-                infoRow('📍', d.type === 'lost' ? '丢失地点' : '拾取地点', esc(d.location)) +
-                infoRow('🕐', d.type === 'lost' ? '丢失时间' : '拾取时间', esc(d.occurredText) + ' 前后') +
-                infoRow('🏷️', '物品类别', esc(d.categoryText)) +
-                infoRow('👤', '发布者', esc(d.publisherText)) +
-                infoRow('📅', '发布时间', esc(d.publishedText)) +
-                infoRow('👁️', '浏览次数', esc(d.viewCount) + ' 次') +
+                infoRow(LF.icons.render('map-pin'), d.type === 'lost' ? '丢失地点' : '拾取地点', esc(d.location)) +
+                infoRow(LF.icons.render('clock'), d.type === 'lost' ? '丢失时间' : '拾取时间', esc(d.occurredText) + ' 前后') +
+                infoRow(LF.icons.render('tag'), '物品类别', esc(d.categoryText)) +
+                infoRow(LF.icons.render('user-round'), '发布者', esc(d.publisherText)) +
+                infoRow(LF.icons.render('calendar-days'), '发布时间', esc(d.publishedText)) +
+                infoRow(LF.icons.render('eye'), '浏览次数', esc(d.viewCount) + ' 次') +
               '</div>' +
             '</div>' +
 
@@ -140,14 +142,14 @@ LF.pages = LF.pages || {};
 
             relatedHtml +
 
-            '<div class="safety-tip"><span class="tip-icon">⚠️</span>' +
+            '<div class="safety-tip"><span class="tip-icon">' + LF.icons.render('triangle-alert') + '</span>' +
             '<span class="tip-text">请勿在沟通中提供银行卡号、验证码或转账；见面交接建议选择图书馆、宿舍楼下等校园公共区域。</span></div>' +
             '<div style="height:20px;"></div>' +
           '</div></div>' +
 
           '<div class="bottom-bar bottom-bar-row">' +
             '<div class="bar-btn outline" data-act="go-home">返回首页</div>' +
-            '<div class="bar-btn primary" data-act="open-contact"><span>📞</span><span>联系发布者</span></div>' +
+            '<div class="bar-btn primary" data-act="open-contact"><span>' + LF.icons.render('phone') + '</span><span>联系发布者</span></div>' +
           '</div>';
 
         bindSwiper();
@@ -173,6 +175,7 @@ LF.pages = LF.pages || {};
           contactLoadingTimer = null;
         }
         state.contactVisible = false;
+        state.contactLoading = false;
         var sheet = root.querySelector('.sheet-mask');
         if (sheet) sheet.remove();
       }
@@ -197,16 +200,27 @@ LF.pages = LF.pages || {};
         document.body.appendChild(input);
         input.select();
         try {
-          document.execCommand('copy');
+          if (!document.execCommand('copy')) throw new Error('复制未成功');
           ui.toast('已复制', 'success');
         } catch (e) {
           ui.toast('复制失败，请手动复制', 'error');
+          var visible = root.querySelector('.contact-value');
+          if (visible) { visible.focus(); visible.select(); }
         }
         input.remove();
       }
 
       function openContact() {
+        if (!LF.auth.isAuthorized()) {
+          LF.auth.requestLogin('#/detail?id=' + encodeURIComponent(state.id), {
+            onSuccess: function () { if (root.isConnected) openContact(); }
+          });
+          return;
+        }
+        if (state.contactVisible || state.contactLoading) return;
+        state.contactLoading = true;
         LF.auth.ensureLogin().then(function () {
+          if (!root.isConnected) return;
           state.contactVisible = true;
           state.contact = null;
           state.contactLoading = true;
@@ -216,6 +230,7 @@ LF.pages = LF.pages || {};
           }, 260);
           return LF.api.getItemContact(state.id);
         }).then(function (data) {
+          if (!root.isConnected || !data) return;
           if (contactLoadingTimer) {
             clearTimeout(contactLoadingTimer);
             contactLoadingTimer = null;
@@ -225,6 +240,8 @@ LF.pages = LF.pages || {};
           state.contactLoading = false;
           showSheet();
         }).catch(function (err) {
+          if (!root.isConnected) return;
+          state.contactLoading = false;
           state.contactVisible = false;
           removeSheet();
           ui.toast(err.message || '获取联系方式失败', 'error');
@@ -256,7 +273,7 @@ LF.pages = LF.pages || {};
         if (!el || !root.contains(el)) return;
         var act = el.getAttribute('data-act');
         if (act === 'preview') {
-          ui.lightbox(state.detail.images, state.detail.images.indexOf(el.getAttribute('data-url')));
+          ui.lightbox(state.detail.images, state.detail.images.indexOf(el.getAttribute('data-url')), state.detail);
         } else if (act === 'go-home') {
           LF.router.go('#/home');
         } else if (act === 'go-search') {
@@ -280,6 +297,7 @@ LF.pages = LF.pages || {};
 
       // 加载详情
       LF.api.getItemDetail(id).then(function (data) {
+        if (!root.isConnected) return;
         LF.urlUtil.resolveItemImages(data);
         var relatedItems = (data.relatedItems || []).map(function (r) {
           LF.urlUtil.resolveItemImages(r);
@@ -299,6 +317,7 @@ LF.pages = LF.pages || {};
         state.loading = false;
         render();
       }).catch(function (err) {
+        if (!root.isConnected) return;
         state.loading = false;
         state.detail = null;
         render();

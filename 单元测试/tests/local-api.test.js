@@ -12,7 +12,7 @@
  */
 const { describe, it, beforeEach } = require('node:test');
 const assert = require('node:assert/strict');
-const { createEnv } = require('./helpers/env.js');
+const { createEnv, loginDemo } = require('./helpers/env.js');
 
 let LF;
 
@@ -42,45 +42,37 @@ function validPayload(LF, overrides) {
   }, overrides || {});
 }
 
-async function loginDemo(LF, code) {
-  // 全新环境下，第一个登录的 code 会绑定到内置演示账号
-  return LF.api.login(code || 'web_demo', {});
-}
-
 describe('本地业务接口 local-api', () => {
   beforeEach(() => { LF = createEnv().LF; });
 
   /* ---------------- 登录与身份 ---------------- */
   describe('登录与身份', () => {
-    it('首次登录自动绑定演示账号并返回 token 与用户信息', async () => {
+    it('首次注册绑定演示账号，返回凭证和旧学院资料', async () => {
       const res = await loginDemo(LF);
-      assert.ok(/^local_token_/.test(res.token));
+      assert.match(res.token, /^[0-9a-f]{64}$/);
       assert.equal(res.user.nickname, '林同学');
       assert.equal(res.user.college, '计算机学院');
       assert.equal(res.tokenType, 'Bearer');
     });
-
-    it('同一 code 重复登录不会创建新账号', async () => {
-      const a = await loginDemo(LF, 'same_code');
-      const b = await loginDemo(LF, 'same_code');
+    it('同一邮箱重复登录不会创建新账号', async () => {
+      const a = await loginDemo(LF, 'same');
+      await LF.api.logout();
+      const b = await loginDemo(LF, 'same');
       assert.equal(a.user.id, b.user.id);
     });
-
-    it('演示账号被绑定后，新 code 自动注册并生成随机昵称', async () => {
-      await loginDemo(LF, 'first_code');
-      const other = await LF.api.login('brand_new_code', {});
-      assert.ok(/^同学\d{4}$/.test(other.user.nickname), '应生成“同学+4位数字”昵称');
+    it('后续账号从空发布列表开始', async () => {
+      await loginDemo(LF, 'first');
+      const other = await loginDemo(LF, 'second');
       assert.notEqual(other.user.id, 1001);
+      assert.equal((await LF.api.getMyItems()).total, 0);
     });
-
-    it('登录时携带昵称会更新用户资料', async () => {
-      const res = await LF.api.login('web_demo', { nickname: '小林', college: '软件学院' });
+    it('注册昵称生效，保留旧资料', async () => {
+      const res = await LF.api.register({ email: 'lin@example.com', password: 'test_password', nickname: '小林', bindLegacy: true });
       assert.equal(res.user.nickname, '小林');
-      assert.equal(res.user.college, '软件学院');
+      assert.equal(res.user.college, '计算机学院');
     });
-
-    it('匿名访问“我的发布”等受保护接口应被拒绝', async () => {
-      await expectReject(LF.api.getMyItems({ scope: 'all' }), /未登录/);
+    it('游客访问受保护接口被拒绝', async () => {
+      await expectReject(LF.api.getMyItems({ scope: 'all' }), /登录/);
     });
   });
 
@@ -219,7 +211,7 @@ describe('本地业务接口 local-api', () => {
     });
 
     it('未登录不能获取联系方式', async () => {
-      await expectReject(LF.api.getItemContact(1), /未登录/);
+      await expectReject(LF.api.getItemContact(1), /登录/);
     });
   });
 

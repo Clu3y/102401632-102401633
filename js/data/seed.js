@@ -9,7 +9,7 @@
 window.LF = window.LF || {};
 
 (function (LF) {
-  // 演示用户：demo 即首次匿名静默登录后绑定的“当前账号”，
+  // 演示用户：demo 是首次注册时经确认绑定的演示用户，
   // 这样进入“我的发布”能直接看到统计与记录，便于演示。
   var USERS = [
     { key: 'demo', nickname: '林同学', avatarUrl: null, college: '计算机学院', grade: '2024' },

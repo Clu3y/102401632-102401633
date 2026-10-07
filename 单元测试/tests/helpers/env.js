@@ -24,10 +24,16 @@ const FILES = [
   'utils/constants.js',
   'utils/format.js',
   'utils/url.js',
+  'utils/query.js',
+  'utils/draft.js',
   'data/seed.js',
+  'utils/icons.js',
+  'utils/media.js',
   'data/db.js',
+  'data/accounts.js',
   'data/local-api.js',
-  'utils/api.js'
+  'utils/api.js',
+  'utils/auth.js'
 ];
 
 function memoryStorage() {
@@ -41,14 +47,17 @@ function memoryStorage() {
   };
 }
 
-function createEnv() {
-  const localStorage = memoryStorage();
+function createEnv(options = {}) {
+  const localStorage = options.localStorage || memoryStorage();
 
   const sandbox = {
     console,
     // 立即执行的定时器：消除被测代码里模拟网络延时的等待
-    setTimeout: (fn) => { try { fn(); } catch (_) { /* reject 在 fn 内部处理 */ } return 0; },
+    setTimeout: options.setTimeout || ((fn) => { try { fn(); } catch (_) { /* reject 在 fn 内部处理 */ } return 0; }),
     clearTimeout: () => {},
+    crypto: options.crypto === undefined ? require("node:crypto").webcrypto : options.crypto,
+    TextEncoder, Uint8Array,
+    sessionStorage: options.sessionStorage || memoryStorage(),
     Date,
     Math,
     JSON,
@@ -73,7 +82,13 @@ function createEnv() {
     vm.runInContext(code, sandbox, { filename: rel });
   });
 
-  return { LF: sandbox.LF, sandbox, localStorage };
+  return { LF: sandbox.LF, sandbox, localStorage, sessionStorage: sandbox.sessionStorage };
 }
 
-module.exports = { createEnv, JS_ROOT };
+async function loginDemo(LF, code = 'web_demo') {
+  const email = code + '@example.com';
+  const existing = LF.db.load().users.find(u => u.email === email);
+  return existing ? LF.api.login({ email, password: 'demo_pass_123' })
+    : LF.api.register({ email, password: 'demo_pass_123', nickname: '林同学', bindLegacy: true });
+}
+module.exports = { createEnv, JS_ROOT, loginDemo, memoryStorage };

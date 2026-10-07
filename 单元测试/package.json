@@ -4,8 +4,8 @@
   "private": true,
   "description": "校园失物招领单元测试：使用 Node 内置 test runner，零第三方依赖",
   "scripts": {
-    "test": "node --test tests/local-api.test.js tests/db.test.js tests/utils.test.js",
-    "test:detail": "node --test --test-reporter=spec tests/local-api.test.js tests/db.test.js tests/utils.test.js"
+    "test": "node --test tests/*.test.js",
+    "test:detail": "node --test --test-reporter=spec tests/*.test.js"
   },
   "engines": {
     "node": ">=18"

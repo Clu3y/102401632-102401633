@@ -1,6 +1,6 @@
 /* my-posts.css — 我的发布（由 pages/my-posts/index.wxss 转换） */
 
-.my-posts-page {
+.my-posts-root .my-posts-page {
   height: 100%;
   background: var(--coral-50);
   display: flex;
@@ -9,32 +9,32 @@
 }
 
 /* 顶部栏 */
-.my-posts-page .header {
+.my-posts-root .my-posts-page .header {
   background: #FFFFFF;
   padding: 20px 20px 12px;
   border-bottom: 1px solid var(--coral-100);
   flex-shrink: 0;
 }
 
-.header-row {
+.my-posts-root .header-row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.header-title {
+.my-posts-root .header-title {
   font-size: 16px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.header-sub {
+.my-posts-root .header-sub {
   margin-top: 2px;
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.publish-btn {
+.my-posts-root .publish-btn {
   padding: 7px 14px;
   border-radius: 100px;
   background: var(--coral-500);
@@ -46,13 +46,13 @@
 }
 
 /* 统计 */
-.stats {
+.my-posts-root .stats {
   margin-top: 14px;
   display: flex;
   gap: 10px;
 }
 
-.stat-item {
+.my-posts-root .stat-item {
   flex: 1;
   background: var(--coral-50);
   border-radius: 9px;
@@ -60,29 +60,29 @@
   text-align: center;
 }
 
-.stat-num {
+.my-posts-root .stat-num {
   font-size: 18px;
   font-weight: 700;
 }
 
-.stat-num.coral { color: var(--coral-600); }
-.stat-num.amber { color: var(--amber-fg); }
-.stat-num.emerald { color: var(--green-fg); }
+.my-posts-root .stat-num.coral { color: var(--coral-600); }
+.my-posts-root .stat-num.amber { color: var(--amber-fg); }
+.my-posts-root .stat-num.emerald { color: var(--green-fg); }
 
-.stat-label {
+.my-posts-root .stat-label {
   margin-top: 2px;
   font-size: 10.5px;
   color: var(--ink-500);
 }
 
 /* 筛选 */
-.scope-filters {
+.my-posts-root .scope-filters {
   margin-top: 12px;
   display: flex;
   gap: 8px;
 }
 
-.scope-btn {
+.my-posts-root .scope-btn {
   padding: 5px 14px;
   border-radius: 100px;
   font-size: 12px;
@@ -93,24 +93,24 @@
   cursor: pointer;
 }
 
-.scope-btn.active {
+.my-posts-root .scope-btn.active {
   background: var(--coral-500);
   color: #FFFFFF;
   border-color: var(--coral-500);
 }
 
 /* 列表 */
-.post-list {
+.my-posts-root .post-list {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.post-list::-webkit-scrollbar { width: 0; }
+.my-posts-root .post-list::-webkit-scrollbar { width: 0; }
 
-.post-list-inner { padding: 12px 20px 0; }
+.my-posts-root .post-list-inner { padding: 12px 20px 0; }
 
-.post-card {
+.my-posts-root .post-card {
   background: #FFFFFF;
   border-radius: 10px;
   padding: 14px;
@@ -118,12 +118,12 @@
   box-shadow: var(--shadow-soft);
 }
 
-.post-body {
+.my-posts-root .post-body {
   display: flex;
   gap: 12px;
 }
 
-.post-cover {
+.my-posts-root .post-cover {
   width: 76px;
   height: 76px;
   border-radius: 8px;
@@ -135,33 +135,33 @@
   justify-content: center;
 }
 
-.post-cover .cover-img { width: 100%; height: 100%; object-fit: cover; }
+.my-posts-root .post-cover .cover-img { width: 100%; height: 100%; object-fit: cover; }
 
-.cover-placeholder {
+.my-posts-root .cover-placeholder {
   font-size: 24px;
   opacity: 0.5;
 }
 
-.post-info {
+.my-posts-root .post-info {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
-.post-tags {
+.my-posts-root .post-tags {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.post-time {
+.my-posts-root .post-time {
   margin-left: auto;
   font-size: 10px;
   color: var(--ink-300);
 }
 
-.post-name {
+.my-posts-root .post-name {
   margin-top: 6px;
   font-size: 13.5px;
   font-weight: 600;
@@ -171,7 +171,7 @@
   white-space: nowrap;
 }
 
-.post-location {
+.my-posts-root .post-location {
   margin-top: 4px;
   font-size: 11px;
   color: var(--ink-500);
@@ -180,26 +180,26 @@
   white-space: nowrap;
 }
 
-.post-views {
+.my-posts-root .post-views {
   margin-top: 3px;
   font-size: 11px;
   color: var(--ink-300);
 }
 
-.post-closed {
+.my-posts-root .post-closed {
   margin-top: 3px;
   font-size: 11px;
   color: var(--green-fg);
 }
 
 /* 操作按钮 */
-.post-actions {
+.my-posts-root .post-actions {
   margin-top: 12px;
   display: flex;
   gap: 10px;
 }
 
-.action-btn {
+.my-posts-root .action-btn {
   flex: 1;
   text-align: center;
   padding: 9px 0;
@@ -209,24 +209,24 @@
   cursor: pointer;
 }
 
-.action-btn.outline {
+.my-posts-root .action-btn.outline {
   border: 1px solid var(--coral-300);
   color: var(--coral-500);
 }
 
-.action-btn.primary {
+.my-posts-root .action-btn.primary {
   background: var(--coral-500);
   color: #FFFFFF;
   font-weight: 600;
 }
 
-.action-btn.muted {
+.my-posts-root .action-btn.muted {
   background: var(--coral-50);
   color: var(--ink-500);
 }
 
 /* 空状态 */
-.my-posts-page .empty-state {
+.my-posts-root .my-posts-page .empty-state {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -235,7 +235,7 @@
   padding: 40px 20px;
 }
 
-.my-posts-page .empty-icon {
+.my-posts-root .my-posts-page .empty-icon {
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -247,7 +247,7 @@
   opacity: 0.6;
 }
 
-.empty-btn {
+.my-posts-root .empty-btn {
   margin-top: 16px;
   padding: 9px 24px;
   border-radius: 9px;
@@ -259,7 +259,7 @@
 }
 
 /* 规则说明 */
-.rule-tip {
+.my-posts-root .rule-tip {
   margin: 0 0 20px;
   background: #FFFFFF;
   border: 1px solid var(--coral-100);
@@ -269,34 +269,34 @@
   gap: 8px;
 }
 
-.rule-tip .tip-icon { font-size: 14px; flex-shrink: 0; }
+.my-posts-root .rule-tip .tip-icon { font-size: 14px; flex-shrink: 0; }
 
-.rule-tip .tip-text {
+.my-posts-root .rule-tip .tip-text {
   font-size: 11px;
   line-height: 1.6;
   color: var(--ink-700);
 }
 
 /* 状态更新弹层 */
-.sheet-content .modal-header {
+.my-posts-root .sheet-content .modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-.sheet-content .modal-title {
+.my-posts-root .sheet-content .modal-title {
   font-size: 16px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.sheet-content .modal-subtitle {
+.my-posts-root .sheet-content .modal-subtitle {
   margin-top: 4px;
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.sheet-content .modal-close {
+.my-posts-root .sheet-content .modal-close {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -309,14 +309,14 @@
   cursor: pointer;
 }
 
-.status-options {
+.my-posts-root .status-options {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.status-option {
+.my-posts-root .status-option {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -326,26 +326,26 @@
   cursor: pointer;
 }
 
-.status-option.active {
+.my-posts-root .status-option.active {
   border-color: var(--coral-400);
 }
 
-.status-option.active.ongoing {
+.my-posts-root .status-option.active.ongoing {
   border-color: var(--amber-fg);
   background: var(--amber-bg);
 }
 
-.status-option.active.recovered {
+.my-posts-root .status-option.active.recovered {
   border-color: var(--green-fg);
   background: var(--green-bg);
 }
 
-.status-option.active.returned {
+.my-posts-root .status-option.active.returned {
   border-color: var(--green-fg);
   background: var(--green-bg);
 }
 
-.status-option-icon {
+.my-posts-root .status-option-icon {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -356,37 +356,37 @@
   flex-shrink: 0;
 }
 
-.status-option-icon.amber { background: var(--amber-bg); }
-.status-option-icon.coral { background: #FFFFFF; }
-.status-option.active.ongoing .status-option-icon { background: #FFFFFF; }
+.my-posts-root .status-option-icon.amber { background: var(--amber-bg); }
+.my-posts-root .status-option-icon.coral { background: #FFFFFF; }
+.my-posts-root .status-option.active.ongoing .status-option-icon { background: #FFFFFF; }
 
-.status-option-info { flex: 1; }
+.my-posts-root .status-option-info { flex: 1; }
 
-.status-option-label {
+.my-posts-root .status-option-label {
   font-size: 13.5px;
   font-weight: 500;
   color: var(--ink-900);
 }
 
-.status-option.active .status-option-label {
+.my-posts-root .status-option.active .status-option-label {
   font-weight: 600;
 }
 
-.status-option.active.ongoing .status-option-label { color: var(--amber-fg); }
-.status-option.active.recovered .status-option-label { color: var(--green-fg); }
-.status-option.active.returned .status-option-label { color: var(--green-fg); }
+.my-posts-root .status-option.active.ongoing .status-option-label { color: var(--amber-fg); }
+.my-posts-root .status-option.active.recovered .status-option-label { color: var(--green-fg); }
+.my-posts-root .status-option.active.returned .status-option-label { color: var(--green-fg); }
 
-.status-option-desc {
+.my-posts-root .status-option-desc {
   margin-top: 2px;
   font-size: 11px;
   color: var(--ink-500);
 }
 
-.status-option.active.ongoing .status-option-desc { color: var(--amber-fg); }
-.status-option.active.recovered .status-option-desc { color: var(--green-fg); }
-.status-option.active.returned .status-option-desc { color: var(--green-fg); }
+.my-posts-root .status-option.active.ongoing .status-option-desc { color: var(--amber-fg); }
+.my-posts-root .status-option.active.recovered .status-option-desc { color: var(--green-fg); }
+.my-posts-root .status-option.active.returned .status-option-desc { color: var(--green-fg); }
 
-.modal-note {
+.my-posts-root .modal-note {
   margin-top: 12px;
   font-size: 11px;
   line-height: 1.6;
@@ -394,7 +394,7 @@
 }
 
 /* 个人信息名片 */
-.profile-card {
+.my-posts-root .profile-card {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -405,7 +405,7 @@
   box-shadow: var(--shadow-soft);
 }
 
-.profile-avatar {
+.my-posts-root .profile-avatar {
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -418,30 +418,30 @@
   flex-shrink: 0;
 }
 
-.profile-avatar-img {
+.my-posts-root .profile-avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.profile-avatar-text {
+.my-posts-root .profile-avatar-text {
   font-size: 20px;
   font-weight: 700;
 }
 
-.profile-main {
+.my-posts-root .profile-main {
   flex: 1;
   min-width: 0;
 }
 
-.profile-title-row {
+.my-posts-root .profile-title-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.profile-name {
+.my-posts-root .profile-name {
   font-size: 15px;
   font-weight: 700;
   color: var(--ink-900);
@@ -450,7 +450,7 @@
   white-space: nowrap;
 }
 
-.profile-edit-btn {
+.my-posts-root .profile-edit-btn {
   padding: 4px 10px;
   border: 1px solid var(--coral-300);
   border-radius: 100px;
@@ -461,7 +461,7 @@
   cursor: pointer;
 }
 
-.profile-meta {
+.my-posts-root .profile-meta {
   margin-top: 5px;
   font-size: 11.5px;
   color: var(--ink-700);
@@ -470,40 +470,40 @@
   white-space: nowrap;
 }
 
-.profile-hint {
+.my-posts-root .profile-hint {
   margin-top: 3px;
   font-size: 10.5px;
   color: var(--ink-300);
 }
 
-.my-posts-title-row {
+.my-posts-root .my-posts-title-row {
   margin-top: 16px;
 }
 
 /* 个人信息修改表单 */
-.profile-form {
+.my-posts-root .profile-form {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.profile-field {
+.my-posts-root .profile-field {
   display: block;
 }
 
-.profile-field-label {
+.my-posts-root .profile-field-label {
   display: block;
   font-size: 12px;
   font-weight: 600;
   color: var(--ink-900);
 }
 
-.profile-input {
+.my-posts-root .profile-input {
   margin-top: 6px;
 }
 
-.profile-avatar-upload {
+.my-posts-root .profile-avatar-upload {
   margin-top: 8px;
   padding: 12px;
   display: flex;
@@ -514,7 +514,7 @@
   border-radius: 10px;
 }
 
-.profile-avatar-preview {
+.my-posts-root .profile-avatar-preview {
   width: 54px;
   height: 54px;
   border-radius: 50%;
@@ -527,12 +527,12 @@
   flex-shrink: 0;
 }
 
-.profile-avatar-upload-main {
+.my-posts-root .profile-avatar-upload-main {
   flex: 1;
   min-width: 0;
 }
 
-.profile-upload-btn {
+.my-posts-root .profile-upload-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -546,24 +546,24 @@
   cursor: pointer;
 }
 
-.profile-upload-btn.disabled {
+.my-posts-root .profile-upload-btn.disabled {
   opacity: 0.6;
   pointer-events: none;
 }
 
-.profile-upload-hint {
+.my-posts-root .profile-upload-hint {
   margin-top: 5px;
   font-size: 10.5px;
   color: var(--ink-500);
 }
 
-.profile-form-actions {
+.my-posts-root .profile-form-actions {
   margin-top: 18px;
   display: flex;
   gap: 10px;
 }
 
-.profile-form-btn {
+.my-posts-root .profile-form-btn {
   flex: 1;
   padding: 11px 0;
   border-radius: 9px;
@@ -573,19 +573,19 @@
   cursor: pointer;
 }
 
-.profile-form-btn.secondary {
+.my-posts-root .profile-form-btn.secondary {
   background: var(--coral-50);
   color: var(--ink-700);
   border: 1px solid var(--coral-100);
 }
 
-.profile-form-btn.primary {
+.my-posts-root .profile-form-btn.primary {
   background: var(--coral-500);
   color: #FFFFFF;
   box-shadow: 0 4px 12px rgba(227, 125, 108, 0.3);
 }
 
-.profile-form-btn.disabled {
+.my-posts-root .profile-form-btn.disabled {
   opacity: 0.6;
   pointer-events: none;
 }

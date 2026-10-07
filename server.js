@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
   console.log('校园失物招领已启动：');
   console.log('  本机访问：http://localhost:' + PORT);
   console.log('  数据保存在浏览器本地（localStorage），无需后端与数据库');

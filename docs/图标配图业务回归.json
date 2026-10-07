@@ -1,0 +1,233 @@
+{
+  "browser": "154.0.8037.99",
+  "checks": [
+    "文字草稿自动保存、刷新恢复、排除图片与协议",
+    "缺失必填、图片解析失败、未来时间、保存失败、重复点击、成功后清除草稿",
+    "组合筛选、地址刷新与后退恢复、弹窗焦点约束与恢复、复制失败降级",
+    "快速切换条件，迟到旧响应不会覆盖新结果",
+    "寻物与招领发布、本人结束和恢复、刷新持久化、搜索状态联动、个人资料修改",
+    "无结果与清空条件",
+    "720 CSS px 等效 200% 重排布局",
+    "分页加载保留滚动位置",
+    "直接打开 HTML 可发布并刷新保留，HTTP 与 file 数据相互独立"
+  ],
+  "matrix": [
+    {
+      "width": 360,
+      "height": 800,
+      "hash": "#/home",
+      "columns": 1
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "hash": "#/search",
+      "columns": 1
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "hash": "#/publish",
+      "columns": null
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "hash": "#/detail",
+      "columns": null
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "hash": "#/success",
+      "columns": null
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "hash": "#/my",
+      "columns": 1
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "hash": "#/home",
+      "columns": 1
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "hash": "#/search",
+      "columns": 1
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "hash": "#/publish",
+      "columns": null
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "hash": "#/detail",
+      "columns": null
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "hash": "#/success",
+      "columns": null
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "hash": "#/my",
+      "columns": 1
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "hash": "#/home",
+      "columns": 2
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "hash": "#/search",
+      "columns": 2
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "hash": "#/publish",
+      "columns": null
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "hash": "#/detail",
+      "columns": null
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "hash": "#/success",
+      "columns": null
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "hash": "#/my",
+      "columns": 2
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "hash": "#/home",
+      "columns": 2
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "hash": "#/search",
+      "columns": 2
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "hash": "#/publish",
+      "columns": null
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "hash": "#/detail",
+      "columns": null
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "hash": "#/success",
+      "columns": null
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "hash": "#/my",
+      "columns": 2
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hash": "#/home",
+      "columns": 3
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hash": "#/search",
+      "columns": 3
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hash": "#/publish",
+      "columns": null
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hash": "#/detail",
+      "columns": null
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hash": "#/success",
+      "columns": null
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "hash": "#/my",
+      "columns": 3
+    },
+    {
+      "width": 852,
+      "height": 393,
+      "hash": "#/home",
+      "columns": 2
+    },
+    {
+      "width": 852,
+      "height": 393,
+      "hash": "#/search",
+      "columns": 2
+    },
+    {
+      "width": 852,
+      "height": 393,
+      "hash": "#/publish",
+      "columns": null
+    },
+    {
+      "width": 852,
+      "height": 393,
+      "hash": "#/detail",
+      "columns": null
+    },
+    {
+      "width": 852,
+      "height": 393,
+      "hash": "#/success",
+      "columns": null
+    },
+    {
+      "width": 852,
+      "height": 393,
+      "hash": "#/my",
+      "columns": 2
+    }
+  ],
+  "pageErrors": []
+}

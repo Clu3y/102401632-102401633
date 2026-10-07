@@ -1,0 +1,165 @@
+{
+  "browser": "154.0.8037.99",
+  "checks": [
+    "旧浏览器数据无需重置、读取不写入、手机导航、选中状态、搜索图标操作",
+    "14 条演示信息：列表、详情、预览一致，素材全部解码成功，配图标记和 Esc 关闭",
+    "上传三张→删除一张→双图预览→发布→刷新保留原图；用户图片不标演示",
+    "5 种宽度 × 6 页面：无横向溢出，图标尺寸合理，导航和操作栏在视口内",
+    "损坏照片→类别占位；占位也失败→内联图标，仅尝试一次且禁用失效预览",
+    "断网时直接打开 HTML：本地图标、照片、详情和大图预览可用"
+  ],
+  "matrix": [
+    {
+      "width": 360,
+      "height": 800,
+      "route": "#/home"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "route": "#/search"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "route": "#/publish"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "route": "#/detail"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "route": "#/success"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "route": "#/my"
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "route": "#/home"
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "route": "#/search"
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "route": "#/publish"
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "route": "#/detail"
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "route": "#/success"
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "route": "#/my"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "#/home"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "#/search"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "#/publish"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "#/detail"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "#/success"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "#/my"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "route": "#/home"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "route": "#/search"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "route": "#/publish"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "route": "#/detail"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "route": "#/success"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "route": "#/my"
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "route": "#/home"
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "route": "#/search"
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "route": "#/publish"
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "route": "#/detail"
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "route": "#/success"
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "route": "#/my"
+    }
+  ],
+  "externalRequests": [],
+  "pageErrors": []
+}
