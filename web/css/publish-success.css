@@ -1,0 +1,236 @@
+/* publish-success.css — 发布成功页（由 pages/publish-success/index.wxss 转换） */
+
+.success-root .success-page {
+  min-height: 100%;
+  background: var(--coral-50);
+  padding-bottom: calc(48px + env(safe-area-inset-bottom));
+}
+
+/* 主视觉：用 .success-page .hero 提高特异性，压过 detail.css 中后加载的 .hero
+   （详情页轮播的固定 height:196px / overflow:hidden / 渐变背景会泄漏到本页，
+   导致说明文字被裁剪并与下方回执卡片重叠） */
+.success-root .success-page .hero {
+  display: flow-root;
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  background: transparent;
+  padding: 38px 22px 0;
+  text-align: center;
+}
+
+.success-root .success-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--coral-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  box-shadow: var(--shadow-soft);
+}
+
+.success-root .success-title {
+  margin-top: 16px;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+.success-root .success-desc {
+  max-width: 330px;
+  margin: 8px auto 0;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--ink-700);
+  overflow: visible;
+}
+
+.success-root .success-desc-line {
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* 回执卡片 */
+.success-root .receipt.card {
+  position: relative;
+  clear: both;
+  margin: 0 20px;
+}
+
+.success-root .receipt-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.success-root .receipt-time {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--ink-300);
+}
+
+.success-root .receipt-name {
+  margin-top: 10px;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.success-root .receipt-info { margin-top: 12px; }
+
+.success-root .receipt-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.success-root .receipt-label {
+  font-size: 12px;
+  color: var(--ink-500);
+}
+
+.success-root .receipt-value {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-900);
+}
+
+.success-root .next-tip {
+  margin-top: 12px;
+  background: var(--coral-50);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.success-root .next-tip .tip-icon { font-size: 13px; flex-shrink: 0; }
+
+.success-root .next-tip .tip-text {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+/* 步骤 */
+.success-root .steps.card { margin-top: 16px; }
+
+.success-root .steps-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.success-root .step-item {
+  margin-top: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.success-root .step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--coral-100);
+  color: var(--coral-700);
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.success-root .step-text {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+/* 链接卡片 */
+.success-root .links {
+  margin: 16px 20px 12px;
+  display: flex;
+  gap: 12px;
+}
+
+.success-root .link-card {
+  flex: 1;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.success-root .link-icon { font-size: 18px; }
+
+.success-root .link-title {
+  margin-top: 4px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-900);
+}
+
+.success-root .link-sub {
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+/* 底部操作栏（二级页，flex 固定在 app-main 底部） */
+.success-root .success-page ~ .bottom-bar,
+.success-root > .bottom-bar {
+  flex-shrink: 0;
+  background: #FFFFFF;
+  border-top: 1px solid var(--coral-100);
+  padding: 10px 20px;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  z-index: 50;
+}
+
+.success-root > .bottom-bar .bar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.success-root > .bottom-bar .bar-btn.primary {
+  flex: 1;
+  background: var(--coral-500);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(227, 125, 108, 0.3);
+}
+
+.success-root > .bottom-bar .bar-btn.outline {
+  width: 96px;
+  flex-shrink: 0;
+  border: 1px solid var(--coral-300);
+  color: var(--coral-500);
+  font-weight: 500;
+  font-size: 13px;
+  padding: 10px 0;
+}

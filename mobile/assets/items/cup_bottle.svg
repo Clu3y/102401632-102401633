@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="杯具水壶">
+  <rect width="400" height="400" fill="#DCF2EA"/>
+  <circle cx="62" cy="68" r="60" fill="#BFE7D8"/>
+  <circle cx="352" cy="356" r="74" fill="#BFE7D8"/>
+  <g fill="none" stroke="#059669" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M172 126q-8 -16 0 -32M200 126q-8 -16 0 -32M228 126q-8 -16 0 -32"/>
+    <path d="M152 150h96l-8 118q-2 16 -40 16q-38 0 -40 -16z"/>
+    <path d="M248 174q38 4 0 54"/>
+  </g>
+</svg>

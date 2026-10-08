@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="数码电子">
+  <rect width="400" height="400" fill="#E2ECF3"/>
+  <circle cx="62" cy="66" r="60" fill="#CCDEEA"/>
+  <circle cx="352" cy="356" r="74" fill="#CCDEEA"/>
+  <g fill="none" stroke="#3F6E8C" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M128 234a72 72 0 0 1 144 0"/>
+    <rect x="110" y="226" width="38" height="60" rx="16" fill="#3F6E8C" stroke="none"/>
+    <rect x="252" y="226" width="38" height="60" rx="16" fill="#3F6E8C" stroke="none"/>
+    <path d="M200 206v40"/>
+  </g>
+</svg>

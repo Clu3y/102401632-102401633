@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="书籍文具">
+  <rect width="400" height="400" fill="#FBF0D4"/>
+  <circle cx="62" cy="68" r="60" fill="#F6E2B6"/>
+  <circle cx="352" cy="356" r="74" fill="#F6E2B6"/>
+  <g fill="none" stroke="#B45309" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M200 146q-42 -14 -80 0v122q38 -14 80 0z"/>
+    <path d="M200 146q42 -14 80 0v122q-38 -14 -80 0z"/>
+    <path d="M200 146v122"/>
+    <path d="M146 178h30M146 204h30M224 178h30M224 204h30"/>
+  </g>
+</svg>

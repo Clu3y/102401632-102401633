@@ -1,0 +1,17 @@
+# 作业个人材料（博客草稿/题目，不进入 GitHub 仓库）
+作业随笔.md
+作业要求.md
+
+# 依赖与日志（本项目零依赖，仅作通用约定）
+node_modules/
+*.log
+.local/
+
+# 环境变量
+.env
+
+# 操作系统 / 编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
