@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="服饰箱包">
+  <rect width="400" height="400" fill="#EFE4DE"/>
+  <circle cx="62" cy="68" r="60" fill="#E2D0C6"/>
+  <circle cx="352" cy="356" r="74" fill="#E2D0C6"/>
+  <g fill="none" stroke="#8A5A44" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M158 152v-18q0 -34 42 -34q42 0 42 34v18"/>
+    <rect x="118" y="150" width="164" height="120" rx="18"/>
+    <path d="M200 150v44"/>
+    <circle cx="200" cy="210" r="6" fill="#8A5A44" stroke="none"/>
+  </g>
+</svg>

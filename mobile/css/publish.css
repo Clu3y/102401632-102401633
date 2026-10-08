@@ -1,0 +1,358 @@
+/* publish.css — 发布页（由 pages/publish/index.wxss 转换） */
+
+.publish-page {
+  height: 100%;
+  background: var(--coral-50);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 提示条 */
+.tip-bar {
+  margin: 16px 20px 0;
+  background: rgba(253, 236, 232, 0.6);
+  border: 1px solid var(--coral-200);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.tip-icon { font-size: 14px; flex-shrink: 0; }
+
+.tip-text {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+/* 表单区块 */
+.form-section { margin: 16px 20px 0; }
+
+.form-section.card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: var(--shadow-soft);
+}
+
+.form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.form-title-gap { margin-top: 16px; }
+
+.required { color: var(--coral-500); }
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-optional {
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+/* 类型卡片 */
+.type-cards {
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+}
+
+.type-card {
+  flex: 1;
+  border: 1px solid var(--coral-100);
+  border-radius: 10px;
+  padding: 14px;
+  background: #FFFFFF;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.type-card.active {
+  border-color: var(--coral-400);
+  background: var(--coral-50);
+}
+
+.type-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.type-card-icon { font-size: 16px; }
+
+.type-card-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.type-card.active .type-card-label { color: var(--coral-700); }
+
+.type-card-sub {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+.type-card.active .type-card-sub { color: var(--coral-600); }
+
+/* 输入框 */
+.form-input {
+  margin-top: 10px;
+  width: 100%;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  border-radius: 8px;
+  padding: 14px 12px;
+  font-size: 14px;
+  color: var(--ink-900);
+  box-sizing: border-box;
+  min-height: 44px;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder { color: var(--ink-300); }
+
+.input-with-icon {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.input-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.flex-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  margin-top: 0;
+  padding: 14px 0;
+  min-height: 44px;
+  font-size: 14px;
+}
+
+/* 日期时间 */
+.datetime-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.datetime-box {
+  flex: 1;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 14px;
+  color: var(--ink-900);
+  text-align: center;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.form-hint {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+/* 快捷地点 */
+.quick-places {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quick-place {
+  padding: 4px 12px;
+  border-radius: 100px;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  font-size: 11px;
+  color: var(--ink-700);
+  cursor: pointer;
+}
+
+/* 类别 */
+.category-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-tag {
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  font-size: 12px;
+  color: var(--ink-700);
+  cursor: pointer;
+}
+
+.category-tag.active {
+  background: var(--coral-500);
+  border-color: var(--coral-500);
+  color: #FFFFFF;
+}
+
+/* 文本域 */
+.form-textarea {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 100px;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  border-radius: 8px;
+  padding: 14px 12px;
+  font-size: 14px;
+  color: var(--ink-900);
+  box-sizing: border-box;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+/* 图片上传 */
+.image-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.image-item {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.image-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.image-add {
+  width: 84px;
+  height: 84px;
+  border: 1px dashed var(--coral-300);
+  border-radius: 8px;
+  background: var(--coral-50);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.add-icon { font-size: 20px; opacity: 0.6; }
+.add-text { font-size: 10px; color: var(--coral-600); }
+
+/* 联系方式 */
+.contact-badge {
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: var(--coral-50);
+  font-size: 10px;
+  color: var(--coral-500);
+}
+
+/* 协议 */
+.agreement-label {
+  margin-top: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.agreement-label input { margin-top: 3px; accent-color: var(--coral-500); }
+
+.agreement-text {
+  flex: 1;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+/* 底部操作栏（tab 页内 flex 贴底，位于 tabBar 上方） */
+.publish-page .bottom-bar {
+  flex-shrink: 0;
+  background: #FFFFFF;
+  border-top: 1px solid var(--coral-100);
+  padding: 8px 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 -2px 8px rgba(214, 160, 148, 0.08);
+}
+
+.bar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 0;
+}
+
+.bar-btn.outline {
+  width: 96px;
+  flex-shrink: 0;
+  border: 1px solid var(--coral-300);
+  color: var(--coral-500);
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.bar-btn.primary {
+  flex: 1;
+  background: var(--coral-500);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(227, 125, 108, 0.3);
+  cursor: pointer;
+}
+
+.bar-btn.disabled { opacity: 0.6; pointer-events: none; }

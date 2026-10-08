@@ -1,0 +1,591 @@
+/* my-posts.css — 我的发布（由 pages/my-posts/index.wxss 转换） */
+
+.my-posts-page {
+  height: 100%;
+  background: var(--coral-50);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 顶部栏 */
+.my-posts-page .header {
+  background: #FFFFFF;
+  padding: 20px 20px 12px;
+  border-bottom: 1px solid var(--coral-100);
+  flex-shrink: 0;
+}
+
+.header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.header-sub {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+.publish-btn {
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: var(--coral-500);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* 统计 */
+.stats {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.stat-item {
+  flex: 1;
+  background: var(--coral-50);
+  border-radius: 9px;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.stat-num.coral { color: var(--coral-600); }
+.stat-num.amber { color: var(--amber-fg); }
+.stat-num.emerald { color: var(--green-fg); }
+
+.stat-label {
+  margin-top: 2px;
+  font-size: 10.5px;
+  color: var(--ink-500);
+}
+
+/* 筛选 */
+.scope-filters {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.scope-btn {
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #FFFFFF;
+  color: var(--ink-500);
+  border: 1px solid var(--coral-100);
+  cursor: pointer;
+}
+
+.scope-btn.active {
+  background: var(--coral-500);
+  color: #FFFFFF;
+  border-color: var(--coral-500);
+}
+
+/* 列表 */
+.post-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.post-list::-webkit-scrollbar { width: 0; }
+
+.post-list-inner { padding: 12px 20px 0; }
+
+.post-card {
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+.post-body {
+  display: flex;
+  gap: 12px;
+}
+
+.post-cover {
+  width: 76px;
+  height: 76px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--coral-100), var(--coral-200), var(--coral-300));
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-cover .cover-img { width: 100%; height: 100%; object-fit: cover; }
+
+.cover-placeholder {
+  font-size: 24px;
+  opacity: 0.5;
+}
+
+.post-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-time {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--ink-300);
+}
+
+.post-name {
+  margin-top: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-location {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--ink-500);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-views {
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--ink-300);
+}
+
+.post-closed {
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--green-fg);
+}
+
+/* 操作按钮 */
+.post-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 9px 0;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.action-btn.outline {
+  border: 1px solid var(--coral-300);
+  color: var(--coral-500);
+}
+
+.action-btn.primary {
+  background: var(--coral-500);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.action-btn.muted {
+  background: var(--coral-50);
+  color: var(--ink-500);
+}
+
+/* 空状态 */
+.my-posts-page .empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.my-posts-page .empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--coral-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  opacity: 0.6;
+}
+
+.empty-btn {
+  margin-top: 16px;
+  padding: 9px 24px;
+  border-radius: 9px;
+  background: var(--coral-500);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* 规则说明 */
+.rule-tip {
+  margin: 0 0 20px;
+  background: #FFFFFF;
+  border: 1px solid var(--coral-100);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.rule-tip .tip-icon { font-size: 14px; flex-shrink: 0; }
+
+.rule-tip .tip-text {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink-700);
+}
+
+/* 状态更新弹层 */
+.sheet-content .modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.sheet-content .modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.sheet-content .modal-subtitle {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+.sheet-content .modal-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--coral-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--ink-500);
+  cursor: pointer;
+}
+
+.status-options {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--coral-100);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+}
+
+.status-option.active {
+  border-color: var(--coral-400);
+}
+
+.status-option.active.ongoing {
+  border-color: var(--amber-fg);
+  background: var(--amber-bg);
+}
+
+.status-option.active.recovered {
+  border-color: var(--green-fg);
+  background: var(--green-bg);
+}
+
+.status-option.active.returned {
+  border-color: var(--green-fg);
+  background: var(--green-bg);
+}
+
+.status-option-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.status-option-icon.amber { background: var(--amber-bg); }
+.status-option-icon.coral { background: #FFFFFF; }
+.status-option.active.ongoing .status-option-icon { background: #FFFFFF; }
+
+.status-option-info { flex: 1; }
+
+.status-option-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-900);
+}
+
+.status-option.active .status-option-label {
+  font-weight: 600;
+}
+
+.status-option.active.ongoing .status-option-label { color: var(--amber-fg); }
+.status-option.active.recovered .status-option-label { color: var(--green-fg); }
+.status-option.active.returned .status-option-label { color: var(--green-fg); }
+
+.status-option-desc {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--ink-500);
+}
+
+.status-option.active.ongoing .status-option-desc { color: var(--amber-fg); }
+.status-option.active.recovered .status-option-desc { color: var(--green-fg); }
+.status-option.active.returned .status-option-desc { color: var(--green-fg); }
+
+.modal-note {
+  margin-top: 12px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink-500);
+}
+
+/* 个人信息名片 */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--coral-50), #FFFFFF 72%);
+  border: 1px solid var(--coral-100);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.profile-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--coral-100);
+  color: var(--coral-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-avatar-text {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.profile-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-edit-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--coral-300);
+  border-radius: 100px;
+  color: var(--coral-600);
+  font-size: 11px;
+  font-weight: 500;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.profile-meta {
+  margin-top: 5px;
+  font-size: 11.5px;
+  color: var(--ink-700);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-hint {
+  margin-top: 3px;
+  font-size: 10.5px;
+  color: var(--ink-300);
+}
+
+.my-posts-title-row {
+  margin-top: 16px;
+}
+
+/* 个人信息修改表单 */
+.profile-form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-field {
+  display: block;
+}
+
+.profile-field-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.profile-input {
+  margin-top: 6px;
+}
+
+.profile-avatar-upload {
+  margin-top: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--coral-50);
+  border: 1px solid var(--coral-100);
+  border-radius: 10px;
+}
+
+.profile-avatar-preview {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--coral-100);
+  color: var(--coral-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-avatar-upload-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--coral-300);
+  color: var(--coral-600);
+  background: #FFFFFF;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.profile-upload-btn.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.profile-upload-hint {
+  margin-top: 5px;
+  font-size: 10.5px;
+  color: var(--ink-500);
+}
+
+.profile-form-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-form-btn {
+  flex: 1;
+  padding: 11px 0;
+  border-radius: 9px;
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-form-btn.secondary {
+  background: var(--coral-50);
+  color: var(--ink-700);
+  border: 1px solid var(--coral-100);
+}
+
+.profile-form-btn.primary {
+  background: var(--coral-500);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(227, 125, 108, 0.3);
+}
+
+.profile-form-btn.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}

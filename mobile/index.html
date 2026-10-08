@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>校园失物招领</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/search.css" />
+  <link rel="stylesheet" href="css/publish.css" />
+  <link rel="stylesheet" href="css/publish-success.css" />
+  <link rel="stylesheet" href="css/detail.css" />
+  <link rel="stylesheet" href="css/my-posts.css" />
+</head>
+<body>
+  <!-- 手机外壳：移动端全屏，桌面端居中显示 -->
+  <div class="app-shell">
+    <!-- 桌面端手机外框状态栏 -->
+    <div class="phone-status-bar" aria-hidden="true">
+      <span class="phone-status-time" data-role="phone-status-time">09:41</span>
+      <div class="phone-status-icons">
+        <span class="phone-status-network">5G</span>
+        <svg class="phone-status-icon phone-status-signal" viewBox="0 0 17 12" fill="currentColor">
+          <rect x="0" y="8" width="3" height="4" rx="1"></rect>
+          <rect x="4.5" y="6" width="3" height="6" rx="1"></rect>
+          <rect x="9" y="3" width="3" height="9" rx="1"></rect>
+          <rect x="13.5" y="0" width="3" height="12" rx="1"></rect>
+        </svg>
+        <svg class="phone-status-icon phone-status-wifi" viewBox="0 0 18 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <path d="M1.2 4.3C5.4 0.8 12.6 0.8 16.8 4.3"></path>
+          <path d="M4.1 7.2C6.8 4.9 11.2 4.9 13.9 7.2"></path>
+          <path d="M7 10.1C8.2 9.1 9.8 9.1 11 10.1"></path>
+          <circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"></circle>
+        </svg>
+        <svg class="phone-status-icon phone-status-battery" viewBox="0 0 25 12">
+          <rect x="0.75" y="0.75" width="21" height="10.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"></rect>
+          <rect x="3" y="3" width="15" height="6" rx="1.5" fill="#58B368"></rect>
+          <path d="M23.4 4.2v3.6c0.8-0.3 1.2-0.9 1.2-1.8s-0.4-1.5-1.2-1.8z" fill="currentColor"></path>
+        </svg>
+      </div>
+    </div>
+    <!-- 页面挂载点 -->
+    <main id="app-main" class="app-main"></main>
+    <!-- 底部 tabBar（四个主页面显示） -->
+    <nav id="tab-bar" class="tab-bar"></nav>
+    <!-- 全局浮层：toast / loading / modal / 图片预览 -->
+    <div id="overlay-root"></div>
+  </div>
+
+  <!-- 基础工具（顺序不可随意调整） -->
+  <script src="js/config.js"></script>
+  <script src="js/utils/constants.js"></script>
+  <script src="js/utils/format.js"></script>
+  <script src="js/utils/url.js"></script>
+  <!-- 本地数据层：种子数据 + localStorage 数据库 + 本地接口实现（替代远程后端） -->
+  <script src="js/data/seed.js"></script>
+  <script src="js/data/db.js"></script>
+  <script src="js/data/local-api.js"></script>
+  <script src="js/utils/api.js"></script>
+  <script src="js/utils/auth.js"></script>
+  <script src="js/utils/ui.js"></script>
+  <script src="js/components/tabbar.js"></script>
+  <!-- 页面 -->
+  <script src="js/pages/home.js"></script>
+  <script src="js/pages/search.js"></script>
+  <script src="js/pages/publish.js"></script>
+  <script src="js/pages/publish-success.js"></script>
+  <script src="js/pages/detail.js"></script>
+  <script src="js/pages/my-posts.js"></script>
+  <!-- 路由与启动 -->
+  <script src="js/app.js"></script>
+</body>
+</html>

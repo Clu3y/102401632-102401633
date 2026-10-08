@@ -1,0 +1,37 @@
+/* 账号入口和邮箱登录页面；沿用现有颜色变量。 */
+.mobile-account { order: 1; display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 10px 16px; background: white; border-bottom: 1px solid var(--coral-100); }
+.account-actions { display: flex; align-items: center; gap: 10px; min-width: 0; flex-wrap: wrap; }
+.account-name { color: var(--ink-700); max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-link, .account-logout { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 14px; border-radius: 12px; background: var(--coral-50); color: var(--coral-700); text-decoration: none; font-size: 14px; }
+.account-link.primary { color: white; background: var(--coral-500); }
+.desktop-account { margin-top: 24px; padding: 12px 8px; border-top: 1px solid var(--coral-100); }
+.desktop-account .account-name { flex-basis: 100%; max-width: 100%; }
+.auth-root .page-scroll { padding: 28px 16px 36px; }
+.account-panel { margin: 0 auto; max-width: 480px; padding: 28px; border: 1px solid var(--coral-100); border-radius: 22px; background: white; box-shadow: var(--shadow-soft); }
+.account-back { color: var(--ink-500); font-size: 14px; text-decoration: none; }
+.account-logo { width: 52px; height: 52px; margin-top: 26px; }
+.account-panel h1 { font-size: 28px; margin: 18px 0 6px; }
+.account-subtitle { color: var(--ink-500); margin: 0 0 24px; }
+.account-form { display: grid; gap: 18px; }
+.account-form > label { display: grid; gap: 8px; color: var(--ink-700); }
+.account-form input:not([type="checkbox"]) { width: 100%; min-height: 48px; border: 1px solid var(--coral-200); border-radius: 10px; padding: 12px; background: var(--coral-50); font-size: 16px; }
+.account-form > .legacy-confirm { display: flex; align-items: flex-start; gap: 10px; background: var(--coral-50); padding: 12px; border-radius: 10px; font-size: 13px; }
+.legacy-confirm input { width: 20px; height: 20px; margin: 2px 0 0; flex-shrink: 0; }
+.account-error { color: var(--coral-700); font-size: 14px; overflow-wrap: anywhere; }
+.account-error:empty { display: none; }
+.account-submit, .login-required-button { width: 100%; min-height: 48px; padding: 12px; color: white; background: var(--coral-500); border-radius: 12px; font-weight: 600; }
+.account-submit:disabled { opacity: .65; cursor: wait; }
+.account-switch { font-size: 14px; color: var(--ink-700); }
+.account-switch a { color: var(--coral-700); text-underline-offset: 4px; }
+.account-note { margin-bottom: 0; font-size: 12px; color: var(--ink-500); }
+.auth-overlay { position: fixed; inset: 0; z-index: 1200; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(43, 34, 32, .36); animation: account-fade .16s ease-out; }
+.auth-overlay .account-panel { position: relative; width: 100%; max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; animation: account-enter .16s ease-out; }
+.auth-overlay .account-logo { margin-top: 0; }
+.account-close { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 50%; font-size: 28px; color: var(--ink-500); background: var(--coral-50); }
+.login-required-panel { max-width: 480px; margin: 48px auto; padding: 28px; border-radius: 22px; background: white; border: 1px solid var(--coral-100); }
+.login-required-panel p { margin: 16px 0 24px; color: var(--ink-500); }
+@keyframes account-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes account-enter { from { transform: translateY(8px); } to { transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .auth-overlay, .auth-overlay .account-panel { animation: none; } }
+@media (min-width: 1024px) { .mobile-account { display: none; } .auth-root .page-scroll { padding-top: 36px; } }
+@media (max-width: 639px) { .account-panel { padding: 22px; } .auth-root .page-scroll { padding-top: 16px; } .mobile-account .account-name { max-width: 180px; } }
