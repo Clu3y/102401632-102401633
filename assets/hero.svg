@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300">
-<ellipse cx="237" cy="261" rx="139" ry="17" fill="#f3c7bb" opacity=".4"/><circle cx="228" cy="145" r="113" fill="#f9ded4"/><circle cx="228" cy="145" r="88" fill="#fcebe4"/>
-<g transform="rotate(-14 178 170)"><rect x="97" y="104" width="145" height="105" rx="14" fill="#fffdf9" stroke="#e8b2a0" stroke-width="2"/><path d="M97 135h145" stroke="#f0d6cc" stroke-width="2"/><rect x="112" y="117" width="45" height="5" rx="2.5" fill="#d89580"/><rect x="112" y="154" width="39" height="38" rx="7" fill="#f5d4c4"/><path d="m124 179 8-12 8 12" fill="none" stroke="#ce927b" stroke-width="3"/><path d="M164 157h59m-59 14h45m-45 14h30" stroke="#d8c6bb" stroke-width="4" stroke-linecap="round"/></g>
-<g transform="rotate(12 295 154)"><rect x="266" y="99" width="54" height="117" rx="15" fill="#a4bbae" stroke="#709180" stroke-width="2"/><rect x="272" y="87" width="42" height="23" rx="7" fill="#8fa99a"/><path d="M274 129h38" stroke="#cfe0d6" stroke-width="3"/><path d="m292 151 4 8 9 2-7 6 1 10-8-5-8 4 2-9-6-7 9-1Z" fill="#f6e4b1"/></g>
-<g><circle cx="247" cy="202" r="22" fill="none" stroke="#c49d62" stroke-width="7"/><path d="m262 218 34 37 8-8-7-8 8-8-10-11-8 7-17-18" fill="#d8b777"/><circle cx="243" cy="197" r="5" fill="#fcebe4"/></g>
-<path d="m340 69 5 9 10 2-8 7 1 10-9-6-9 5 2-10-7-8 10-1Z" fill="#e6ad6d"/><path d="m89 69 5-5 6 5-6 6Z" fill="#d9947f"/><circle cx="345" cy="217" r="5" fill="#e3a995"/>
-<path d="M171 59c-9-14-27-2-17 10l15 12 17-14c10-12-8-22-15-8Z" fill="#e37d6c"/><path d="M112 232c-5-8-15-1-9 6l8 7 10-8c5-7-5-12-9-5Z" fill="#e9b1a0"/>
-</svg>

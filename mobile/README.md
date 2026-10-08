@@ -9,12 +9,14 @@
 
 ### 1. 直接安装 Android App（作业 APP 交付物）
 
-安装包：[`apk/app.apk`](apk/app.apk)
+📲 在安卓手机上点击下载：[**app.apk（v1.0.0，约 97 KB）**](https://github.com/Clu3y/102401632-102401633/releases/download/v1.0.0/app.apk)
+（[查看全部 Release](https://github.com/Clu3y/102401632-102401633/releases)；仓库内也同步保留了一份 [`apk/app.apk`](apk/app.apk)）
 
 - 应用信息：应用名「校园失物招领」，包名 `com.example.lostfound`，版本 1.0；
-- 将 `app.apk` 传到安卓手机，点击安装（首次需在系统设置中允许「安装未知来源应用」）；
+- 下载后点击安装（首次需在系统设置中允许「安装未知来源应用」）；
 - 安装后桌面出现图标，**离线即可运行**：页面与数据都打包 / 保存在本机，不依赖任何服务器；
-- 数据保存在应用 WebView 的 localStorage 中，卸载应用会一并清除。
+- 数据保存在应用 WebView 的 localStorage 中，卸载应用会一并清除；
+- 完整性校验 SHA-256：`3D862E039ABA6367D5154E36D3FFAA53C466DF0F1B960DE39F0F129E36886F1E`。
 
 ### 2. 在浏览器中预览手机界面
 
